@@ -1,7 +1,7 @@
 ### 📚 YENNY (Librería) - Sistema de Gestión de Libros y Ventas
 
 **Autores:** Anthony Salazar, Facundo Marconi, Lukas Galarza y Mariano Williams
-**Curso:** Análisis y Metodología de Sistemas  
+**Curso:** Análisis y Metodología de Sistemas
 **Institución:** Da Vinci
 
 Este documento describe el proyecto de análisis y diseño de un sistema de gestión para la librería YENNY, enfocado en optimizar la administración de inventario y ventas.
