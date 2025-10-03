@@ -1,2 +1,5 @@
-__pycache__
-.db
+# Archivos de base de datos local de SQLite
+*.db
+
+# Carpeta de cache de Python (archivos .pyc)
+__pycache__/
