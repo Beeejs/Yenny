@@ -19,6 +19,7 @@ def create_app():
       g.db.execute("PRAGMA foreign_keys = ON;")
     return g.db
 
+  # Cada vez que se cierre el request, se cierra la conexión
   @app.teardown_appcontext
   def close_db(exception=None):
     db = g.pop("db", None)
@@ -28,11 +29,7 @@ def create_app():
   # --- Rutas ---
   @app.route("/")
   def home():
-    conn = get_db()
-    tables = conn.execute(
-        'SELECT name FROM sqlite_master WHERE type="table" ORDER BY name;'
-    ).fetchall()
-    return render_template("index.html", tables=[t["name"] for t in tables])
+    return render_template("index.html")
 
   return app
 
