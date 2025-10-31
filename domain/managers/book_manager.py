@@ -1,5 +1,7 @@
 from data.repositories.book_repository import BookRepository
 from typing import Any, Dict, List, Tuple
+from pydantic import ValidationError 
+from domain.validations.book_validator import BookCreate, BookUpdate
 
 class BookManager:
   def __init__(self):
@@ -23,12 +25,18 @@ class BookManager:
 
   def create(self, data: Dict[str, Any]) -> Tuple[bool, Dict[str, Any] | None, str | None]:
     try:
+      # Validamos datos
+      BookCreate.model_validate(data).model_dump()
+
       new_book_id = self.repo.create(data)
       
       if new_book_id is None:
           return False, [], "Fallo al crear el libro en la DB."
       
       return True, data, ""
+    except ValidationError as e:
+      return False, None, "Datos no validos: " + str(e)
+    
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)
 

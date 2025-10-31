@@ -36,4 +36,7 @@ def create_app():
   from .routes.book import book_bp
   app.register_blueprint(book_bp, url_prefix="/api/book")
 
+  from .routes.category import category_bp
+  app.register_blueprint(category_bp, url_prefix="/api/category")
+
   return app

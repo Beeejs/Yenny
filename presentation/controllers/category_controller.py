@@ -1,13 +1,13 @@
 # presentation/controllers/book_controller.py
 from flask import jsonify
-from domain.managers.book_manager import BookManager
+from domain.managers.category_manager import CategoryManager
 
 # TODO: VALIDAR QUE NO VENGAN CAMPOS NO PERMITIDOS (ver si se puede llegar a implementar)
 def get_all():
-  book_manager = BookManager()
+  category_manager = CategoryManager()
   
-  # Obtener libros
-  ok, books, message = book_manager.get_all()
+  # Obtener categorias
+  ok, categories, message = category_manager.get_all()
 
   if not ok:
     return jsonify(
@@ -20,17 +20,17 @@ def get_all():
   return jsonify(
     {
       "status": True,
-      "message": "Libros obtenidos correctamente",
-      "response": books
+      "message": "Categorias obtenidas correctamente",
+      "response": categories
     }
   ), 200
 
 
 def get_one(id: int):
-  book_manager = BookManager()
+  category_manager = CategoryManager()
   
-  # Obtener libro
-  ok, book, message = book_manager.get_one(id)
+  # Obtener categoria
+  ok, category, message = category_manager.get_one(id)
 
   if not ok:
     return jsonify(
@@ -43,16 +43,16 @@ def get_one(id: int):
   return jsonify(
     {
       "status": True,
-      "message": "Libro obtenido correctamente",
-      "response": book
+      "message": "Categoria obtenida correctamente",
+      "response": category
     }
   ), 200
 
 def create(data: dict):
-  book_manager = BookManager()
+  category_manager = CategoryManager()
   
   # Validar data
-  if not all(k in data for k in ["titulo", "editorial", "anio", "autor", "precio", "stock"]):
+  if not all(k in data for k in ["nombre", "descripcion"]):
     return jsonify(
       {
         "status": False,
@@ -60,8 +60,8 @@ def create(data: dict):
       }
     ), 400
   
-  # Crear libro
-  ok, book, message = book_manager.create(data)
+  # Crear categoria
+  ok, category, message = category_manager.create(data)
   
   if not ok:
     return jsonify(
@@ -74,17 +74,17 @@ def create(data: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Libro creado correctamente",
-      "response": book
+      "message": "Categoria creada correctamente",
+      "response": category
     }
   ), 200
 
 
 def update(id: int, data_update: dict):
-  book_manager = BookManager()
+  category_manager = CategoryManager()
   
-  # Actualizar libro
-  ok, book, message = book_manager.update(id, data_update)
+  # Actualizar categoria
+  ok, category, message = category_manager.update(id, data_update)
 
   if not ok:
     return jsonify(
@@ -97,17 +97,17 @@ def update(id: int, data_update: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Libro actualizado correctamente",
-      "response": book
+      "message": "Categoria actualizada correctamente",
+      "response": category
     }
   ), 200
 
 
 def delete(id: int):
-  book_manager = BookManager()
+  category_manager = CategoryManager()
   
-  # Eliminar libro
-  ok, book, message = book_manager.delete(id)
+  # Eliminar categoria
+  ok, category, message = category_manager.delete(id)
 
   if not ok:
     return jsonify(

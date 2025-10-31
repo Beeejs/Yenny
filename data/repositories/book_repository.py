@@ -32,11 +32,11 @@ class BookRepository:
     return list_books
 
 
-  def get_one(self, id_libro: int) -> Optional[Dict[str, Any]]:
+  def get_one(self, book_id: int) -> Optional[Dict[str, Any]]:
     cursor = self.db.cursor()
     cursor.execute(
       "SELECT id_libro, titulo, editorial, autor, precio, stock FROM libro WHERE id_libro = ?",
-      (id_libro,)
+      (book_id,)
     )
 
     book = cursor.fetchone()
@@ -69,7 +69,7 @@ class BookRepository:
     return cursor.lastrowid
 
 
-  def update(self, id_libro: int, data: Dict[str, Any]) -> int:
+  def update(self, book_id: int, data: Dict[str, Any]) -> int:
     cursor = self.db.cursor()
     cursor.execute(
       "UPDATE libro SET titulo = ?, editorial = ?, autor = ?, precio = ?, stock = ? WHERE id_libro = ?",
@@ -79,18 +79,18 @@ class BookRepository:
         data.get("autor"),
         data.get("precio"),
         data.get("stock"),
-        id_libro
+        book_id
       )
     )
     self.db.commit()
     return cursor.rowcount
 
 
-  def delete(self, id_libro: int) -> int:
+  def delete(self, book_id: int) -> int:
     cursor = self.db.cursor()
     cursor.execute(
       "DELETE FROM libro WHERE id_libro = ?", 
-      (id_libro,)
+      (book_id,)
     )
     self.db.commit()
     return cursor.rowcount
