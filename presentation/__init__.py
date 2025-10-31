@@ -33,4 +33,7 @@ def create_app():
   from .routes.auth import auth_bp
   app.register_blueprint(auth_bp, url_prefix="/api")
 
+  from .routes.book import book_bp
+  app.register_blueprint(book_bp, url_prefix="/api/book")
+
   return app

@@ -5,6 +5,7 @@ SQL_TABLAS = {
   "usuario": """
       CREATE TABLE IF NOT EXISTS usuario (
           id_usuario INTEGER PRIMARY KEY,
+          email TEXT NOT NULL UNIQUE,
           nombre TEXT NOT NULL,
           rol TEXT NOT NULL,
           password TEXT NOT NULL

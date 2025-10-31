@@ -5,18 +5,14 @@ from domain.managers.auth_manager import AuthManager
 
 def register(data: dict):
   auth_manager = AuthManager()
-  
-  nombre = (data.get("nombre") or "").strip()
-  rol = (data.get("rol") or "").strip()
-  password = data.get("password") or ""
 
-  ok, user = auth_manager.register(nombre, rol, password)
+  ok, user, message = auth_manager.register(data)
 
   if not ok:
     return jsonify(
       {
         "status": False,
-        "message": user
+        "message": message or "Algo salio mal",
       }
     ), 400
 
@@ -27,3 +23,29 @@ def register(data: dict):
       "response": user
     }
   ), 200
+
+
+def login(data: dict):
+  auth_manager = AuthManager()
+  
+  email = (data.get("email") or "").strip()
+  password = data.get("password") or ""
+
+  ok, user, message = auth_manager.login(email, password)
+
+  if not ok:
+    return jsonify(
+      {
+        "status": False,
+        "message": message or "Algo salio mal"
+      }
+    ), 401
+
+  return jsonify(
+    {
+      "status": True,
+      "message": "Usuario logueado correctamente",
+      "response": user
+    }
+  ), 200
+
