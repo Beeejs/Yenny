@@ -56,10 +56,11 @@ class BookRepository:
   def create(self, data: Dict[str, Any]) -> int:
     cursor = self.db.cursor()
     cursor.execute(
-      "INSERT INTO libro (titulo, editorial, autor, precio, stock) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO libro (titulo, editorial, anio, autor, precio, stock) VALUES (?, ?, ?, ?, ?, ?)",
       (
         data.get("titulo"),
         data.get("editorial"),
+        data.get("anio"),
         data.get("autor"),
         data.get("precio"),
         data.get("stock")
@@ -94,3 +95,14 @@ class BookRepository:
     )
     self.db.commit()
     return cursor.rowcount
+  
+
+  def set_categories(self, book_id: int, cat_ids: List[int]) -> None:
+    cur = self.db.cursor()
+    # Reemplazo total: borro y creo (transacción externa)
+    cur.execute("DELETE FROM libro_categoria WHERE id_libro=?", (book_id,))
+    if cat_ids:
+      cur.executemany(
+        "INSERT OR IGNORE INTO libro_categoria (id_libro, id_categoria) VALUES (?, ?)",
+        [(book_id, cid) for cid in cat_ids]
+      )

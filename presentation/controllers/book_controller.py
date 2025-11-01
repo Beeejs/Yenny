@@ -51,15 +51,6 @@ def get_one(id: int):
 def create(data: dict):
   book_manager = BookManager()
   
-  # Validar data
-  if not all(k in data for k in ["titulo", "editorial", "anio", "autor", "precio", "stock"]):
-    return jsonify(
-      {
-        "status": False,
-        "message": "Faltan campos obligatorios.",
-      }
-    ), 400
-  
   # Crear libro
   ok, book, message = book_manager.create(data)
   

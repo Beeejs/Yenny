@@ -51,15 +51,6 @@ def get_one(id: int):
 def create(data: dict):
   category_manager = CategoryManager()
   
-  # Validar data
-  if not all(k in data for k in ["nombre", "descripcion"]):
-    return jsonify(
-      {
-        "status": False,
-        "message": "Faltan campos obligatorios.",
-      }
-    ), 400
-  
   # Crear categoria
   ok, category, message = category_manager.create(data)
   

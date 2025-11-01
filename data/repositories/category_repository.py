@@ -81,3 +81,15 @@ class CategoryRepository:
     )
     self.db.commit()
     return cursor.rowcount
+  
+  def categories_exist(self, cat_ids: List[int]) -> tuple[bool, list[int]]:
+    if not cat_ids:
+        return True, []
+    cur = self.db.cursor()
+    q = "SELECT id_categoria FROM categoria WHERE id_categoria IN ({})".format(
+        ",".join("?" * len(cat_ids))
+    )
+    cur.execute(q, cat_ids)
+    found = {row[0] for row in cur.fetchall()}
+    missing = [cid for cid in cat_ids if cid not in found]
+    return (len(missing) == 0), missing

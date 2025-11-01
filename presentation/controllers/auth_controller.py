@@ -27,11 +27,8 @@ def register(data: dict):
 
 def login(data: dict):
   auth_manager = AuthManager()
-  
-  email = (data.get("email") or "").strip()
-  password = data.get("password") or ""
 
-  ok, user, message = auth_manager.login(email, password)
+  ok, user, message = auth_manager.login(data)
 
   if not ok:
     return jsonify(

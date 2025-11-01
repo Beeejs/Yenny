@@ -1,5 +1,8 @@
 from data.repositories.category_repository import CategoryRepository
 from typing import Any, Dict, List, Tuple
+from pydantic import ValidationError 
+from domain.validations.category_validator import CategoryCreate, CategoryUpdate
+from domain.validations.format_errors import format_pydantic_errors
 
 class CategoryManager:
   def __init__(self):
@@ -23,18 +26,29 @@ class CategoryManager:
 
   def create(self, data: Dict[str, Any]) -> Tuple[bool, Dict[str, Any] | None, str | None]:
     try:
+      # Validamos datos
+      CategoryCreate.model_validate(data).model_dump()
+
       new_category_id = self.repo.create(data)
       
       if new_category_id is None:
         return False, [], "Fallo al crear la categoria en la DB."
       
       return True, data, ""
+    
+    except ValidationError as e:
+      error_messages = format_pydantic_errors(e.errors())
+      return False, None, error_messages
+    
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)
 
   def update(self, category_id: int, data_update: Dict[str, Any]) -> Tuple[bool, Dict[str, Any] | None, str | None]:
     
     try:
+      # Validamos datos
+      CategoryUpdate.model_validate(data_update).model_dump()
+
       updated_category = self.repo.get_one(category_id)
 
       if updated_category is None:
@@ -45,6 +59,11 @@ class CategoryManager:
       self.repo.update(category_id, updated_category)
       
       return True, updated_category, ""
+
+    except ValidationError as e:
+      error_messages = format_pydantic_errors(e.errors())
+      return False, None, error_messages
+
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)
 
