@@ -1,7 +1,7 @@
 from data.repositories.book_repository import BookRepository
 from typing import Any, Dict, List, Tuple
 from pydantic import ValidationError 
-from domain.validations.book_validator import BookCreate, BookUpdate
+from domain.validations.book_validator import BookCreate, BookUpdate, format_pydantic_errors 
 
 class BookManager:
   def __init__(self):
@@ -35,7 +35,8 @@ class BookManager:
       
       return True, data, ""
     except ValidationError as e:
-      return False, None, "Datos no validos: " + str(e)
+      error_messages = format_pydantic_errors(e.errors())
+      return False, None, error_messages
     
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)
@@ -43,6 +44,9 @@ class BookManager:
   def update(self, book_id: int, data_update: Dict[str, Any]) -> Tuple[bool, Dict[str, Any] | None, str | None]:
     
     try:
+      # Validamos datossad
+      BookUpdate.model_validate(data_update).model_dump()
+
       updated_book = self.repo.get_one(book_id)
 
       if updated_book is None:
@@ -53,6 +57,10 @@ class BookManager:
       self.repo.update(book_id, updated_book)
       
       return True, updated_book, ""
+    except ValidationError as e:
+      error_messages = format_pydantic_errors(e.errors())
+      return False, None, error_messages
+    
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)
 
