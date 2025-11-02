@@ -20,13 +20,20 @@ class UserRepository:
     return cursor.lastrowid
 
 
-  def get_user_by_email(self, email: str) -> dict | None:
+  def get_one(self, email: str | None = None, id: int | None = None ) -> dict | None:
     cursor = self.db.cursor()
-    
-    cursor.execute(
-      "SELECT id_usuario, nombre, email, rol, password FROM usuario WHERE email = ?", 
-      (email,)
-    )
+
+    if(id is not None):
+      cursor.execute(
+        "SELECT id_usuario, nombre, email, rol, password FROM usuario WHERE id_usuario = ?", 
+        (id,)
+      )
+
+    if(email is not None):
+      cursor.execute(
+        "SELECT id_usuario, nombre, email, rol, password FROM usuario WHERE email = ?", 
+        (email,)
+      )
     
     user_data = cursor.fetchone()
     

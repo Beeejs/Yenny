@@ -52,7 +52,7 @@ class CategoryManager:
       updated_category = self.repo.get_one(category_id)
 
       if updated_category is None:
-        return False, [], "Categoria a actualizar no encontrada."
+        return False, [], "Categoria no encontrada."
       
       updated_category.update(data_update)
 
@@ -71,7 +71,7 @@ class CategoryManager:
     try:
       category_to_delete = self.repo.get_one(category_id)
       if category_to_delete is None:
-        return False, [], "Categoria a eliminar no encontrada."
+        return False, [], "Categoria no encontrada."
           
       self.repo.delete(category_id)
       

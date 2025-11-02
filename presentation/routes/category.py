@@ -1,4 +1,4 @@
-# presentation/routes/auth.py
+# presentation/routes/category.py
 from flask import Blueprint, request
 # controller
 from ..controllers import category_controller

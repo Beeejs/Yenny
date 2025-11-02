@@ -35,7 +35,7 @@ class AuthManager:
     try:
       # Validamos datos
       AuthLogin.model_validate(data).model_dump()
-      user = self.repo.get_user_by_email(data["email"])
+      user = self.repo.get_one(data["email"], None)
 
       # Validamos si el usuario existe
       if user is None:

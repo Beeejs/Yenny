@@ -1,13 +1,13 @@
-# presentation/controllers/category_controller.py
+# presentation/controllers/sell_controller.py
 from flask import jsonify
-from domain.managers.category_manager import CategoryManager
+from domain.managers.sale_manager import SaleManager
 
 # TODO: VALIDAR QUE NO VENGAN CAMPOS NO PERMITIDOS (ver si se puede llegar a implementar)
 def get_all():
-  category_manager = CategoryManager()
+  sell_manager = SaleManager()
   
-  # Obtener categorias
-  ok, categories, message = category_manager.get_all()
+  # Obtener ventas
+  ok, sales, message = sell_manager.get_all()
 
   if not ok:
     return jsonify(
@@ -20,17 +20,17 @@ def get_all():
   return jsonify(
     {
       "status": True,
-      "message": "Categorias obtenidas correctamente",
-      "response": categories
+      "message": "Ventas obtenidas correctamente",
+      "response": sales
     }
   ), 200
 
 
 def get_one(id: int):
-  category_manager = CategoryManager()
+  sale_manager = SaleManager()
   
-  # Obtener categoria
-  ok, category, message = category_manager.get_one(id)
+  # Obtener venta
+  ok, sale, message = sale_manager.get_one(id)
 
   if not ok:
     return jsonify(
@@ -43,16 +43,16 @@ def get_one(id: int):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria obtenida correctamente",
-      "response": category
+      "message": "Venta obtenida correctamente",
+      "response": sale
     }
   ), 200
 
 def create(data: dict):
-  category_manager = CategoryManager()
+  sale_manager = SaleManager()
   
-  # Crear categoria
-  ok, category, message = category_manager.create(data)
+  # Crear venta
+  ok, sale, message = sale_manager.create(data)
   
   if not ok:
     return jsonify(
@@ -65,17 +65,17 @@ def create(data: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria creada correctamente",
-      "response": category
+      "message": "Venta creada correctamente",
+      "response": sale
     }
   ), 200
 
 
 def update(id: int, data_update: dict):
-  category_manager = CategoryManager()
+  sale_manager = SaleManager()
   
-  # Actualizar categoria
-  ok, category, message = category_manager.update(id, data_update)
+  # Actualizar venta
+  ok, sale, message = sale_manager.update(id, data_update)
 
   if not ok:
     return jsonify(
@@ -88,17 +88,17 @@ def update(id: int, data_update: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria actualizada correctamente",
-      "response": category
+      "message": "Venta actualizada correctamente",
+      "response": sale
     }
   ), 200
 
 
 def delete(id: int):
-  category_manager = CategoryManager()
+  sale_manager = SaleManager()
   
-  # Eliminar categoria
-  ok, category, message = category_manager.delete(id)
+  # Eliminar venta
+  ok, sale, message = sale_manager.delete(id)
 
   if not ok:
     return jsonify(
@@ -111,7 +111,7 @@ def delete(id: int):
   return jsonify(
     {
       "status": True,
-      "message": "Libro eliminado correctamente"
+      "message": "Venta eliminada correctamente"
     }
   ), 200
   

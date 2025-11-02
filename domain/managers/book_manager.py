@@ -65,7 +65,7 @@ class BookManager:
       updated_book = self.repo.get_one(book_id)
 
       if updated_book is None:
-        return False, [], "Libro a actualizar no encontrado."
+        return False, [], "Libro no encontrado."
       
       # Si vienen categorías, validar existencia antes
       if "categorias" in payload and payload["categorias"] is not None:
@@ -99,7 +99,7 @@ class BookManager:
     try:
       book_to_delete = self.repo.get_one(book_id)
       if book_to_delete is None:
-        return False, [], "Libro a eliminar no encontrado."
+        return False, [], "Libro no encontrado."
           
       self.repo.delete(book_id)
       
