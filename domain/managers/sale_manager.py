@@ -34,7 +34,7 @@ class SaleManager:
       # Validamos datos
       payload = SaleCreate.model_validate(data).model_dump()
 
-      fecha = datetime.now().isoformat(timespec="seconds")
+      date = datetime.now().isoformat(timespec="seconds")
 
       try:
 
@@ -62,7 +62,7 @@ class SaleManager:
         
         new_sale_id = self.repo.create({
           "id_usuario": payload["id_usuario"],
-          "fecha": fecha,
+          "fecha": date,
           "metodo_pago": payload["metodo_pago"],
           "estado": payload["estado"]
         })
@@ -79,6 +79,23 @@ class SaleManager:
             for it in payload["items"]
           ]
         )
+
+        day = date[:10]
+
+        sale_qty = 1
+        books_qty = sum(int(it["cantidad"]) for it in payload["items"])
+        total = float(sum(it["precio_unitario"] * it["cantidad"] for it in payload["items"]))
+
+        # reporte_venta_diaria
+        self.repo.upsert_reporte_diario(
+          payload["id_usuario"], day, sale_qty, books_qty, total
+        )
+
+        # popularidad_libro_diaria
+        for it in payload["items"]:
+          items_qty = int(it["cantidad"])
+          income = float(it["precio_unitario"] * it["cantidad"])
+          self.repo.upsert_popularidad_libro(it["id_libro"], day, items_qty, income)
 
         self.repo.db.commit()
       except Exception:

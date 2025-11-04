@@ -88,3 +88,32 @@ class SaleRepository:
     )
     self.db.commit()
     return cursor.rowcount
+  
+
+  def upsert_reporte_diario(self, id_usuario: int, dia: str, ventas_delta: int, unidades_delta: int, monto_delta: float) -> None:
+    cur = self.db.cursor()
+    cur.execute(
+      """
+      INSERT INTO reporte_venta_diaria (id_usuario, dia, ventas, unidades, monto)
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(id_usuario, dia) DO UPDATE SET
+        ventas   = ventas   + excluded.ventas,
+        unidades = unidades + excluded.unidades,
+        monto    = monto    + excluded.monto
+      """,
+      (id_usuario, dia, ventas_delta, unidades_delta, monto_delta)
+    )
+
+  def upsert_popularidad_libro(self, id_libro: int, dia: str, unidades_delta: int, ingresos_delta: float) -> None:
+    cur = self.db.cursor()
+    cur.execute(
+      """
+      INSERT INTO popularidad_libro_diaria (id_libro, dia, unidades, ingresos)
+      VALUES (?, ?, ?, ?)
+      ON CONFLICT(id_libro, dia) DO UPDATE SET
+        unidades = unidades + excluded.unidades,
+        ingresos = ingresos + excluded.ingresos
+      """,
+      (id_libro, dia, unidades_delta, ingresos_delta)
+    )
+
