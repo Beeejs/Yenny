@@ -2,7 +2,6 @@
 from flask import jsonify
 from domain.managers.book_manager import BookManager
 
-# TODO: VALIDAR QUE NO VENGAN CAMPOS NO PERMITIDOS (ver si se puede llegar a implementar)
 def get_all():
   book_manager = BookManager()
   

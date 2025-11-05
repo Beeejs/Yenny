@@ -41,10 +41,10 @@ class SaleManager:
         user = self.repo_user.get_one(None, data["id_usuario"])
 
         # Validaciones de logica
-        if(payload["metodo_pago"] not in ["EFECTIVO", "TARJETA", "TRANSFERENCIA"]):
+        if(payload["metodo_pago"] not in ["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA", "OTRO"]):
           return False, [], "Metodo de pago no valido"
 
-        if(payload["estado"] not in ["CONFIRMADO", "PENDIENTE", "CANCELADA"]):
+        if(payload["estado"] not in ["COMPLETADA", "PENDIENTE", "ANULADA"]):
           return False, [], "Estado de venta no valido"
         
         if(len(payload["items"]) == 0):

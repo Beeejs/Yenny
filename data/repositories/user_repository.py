@@ -1,9 +1,31 @@
 # data/repository/user_repository.py
 from flask import current_app
+from typing import Dict, List, Any
 
 class UserRepository:
   def __init__(self):
     self.db = current_app.get_db()
+
+  def get_all(self) -> List[Dict[str, Any]]:
+    cursor = self.db.cursor()
+    cursor.execute(
+      "SELECT id_usuario, nombre, email, rol, password FROM usuario"
+    )
+
+    users = cursor.fetchall()
+
+    list_users = []
+
+    for row in users:
+      book_dict = {
+        "id_usuario": row[0],
+        "nombre": row[1],
+        "email": row[2],
+        "rol": row[3]
+      }
+      list_users.append(book_dict)
+      
+    return list_users
 
   def create(self, data: dict):
     cursor = self.db.cursor()
@@ -43,7 +65,7 @@ class UserRepository:
         "nombre": user_data[1],
         "email": user_data[2],
         "rol": user_data[3],
-        "password": user_data[4] 
+        "password": user_data[4]
       }
     
     return None

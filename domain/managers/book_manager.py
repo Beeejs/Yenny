@@ -31,6 +31,12 @@ class BookManager:
       # Validamos datos. Utilizamos payload por le decimal
       payload = BookCreate.model_validate(data).model_dump()
       cat_ids = payload.get("categorias", [])
+
+      # Validamos que las categorias existan
+      for cat_id in cat_ids:
+        cat = self.category_repo.get_one(cat_id)
+        if cat is None:
+          return False, [], f"La categoria {cat_id} no existe."
       
       # Hacer todo en una transacción, con un solo commit al final
       try:

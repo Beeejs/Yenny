@@ -2,7 +2,6 @@
 from flask import jsonify
 from domain.managers.sale_manager import SaleManager
 
-# TODO: VALIDAR QUE NO VENGAN CAMPOS NO PERMITIDOS (ver si se puede llegar a implementar)
 def get_all():
   sell_manager = SaleManager()
   

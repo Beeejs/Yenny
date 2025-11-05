@@ -1,12 +1,12 @@
 # presentation/controllers/category_controller.py
 from flask import jsonify
-from domain.managers.category_manager import CategoryManager
+from domain.managers.user_manager import UserManager
 
 def get_all():
-  category_manager = CategoryManager()
+  user_manager = UserManager()
   
-  # Obtener categorias
-  ok, categories, message = category_manager.get_all()
+  # Obtener usuarios
+  ok, users, message = user_manager.get_all()
 
   if not ok:
     return jsonify(
@@ -19,17 +19,17 @@ def get_all():
   return jsonify(
     {
       "status": True,
-      "message": "Categorias obtenidas correctamente",
-      "response": categories
+      "message": "Usuarios obtenidos correctamente",
+      "response": users
     }
   ), 200
 
 
 def get_one(id: int):
-  category_manager = CategoryManager()
+  user_manager = UserManager()
   
-  # Obtener categoria
-  ok, category, message = category_manager.get_one(id)
+  # Obtener usuario
+  ok, user, message = user_manager.get_one(id)
 
   if not ok:
     return jsonify(
@@ -42,16 +42,16 @@ def get_one(id: int):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria obtenida correctamente",
-      "response": category
+      "message": "Usuarios obtenidos correctamente",
+      "response": user
     }
   ), 200
 
 def create(data: dict):
-  category_manager = CategoryManager()
+  user_manager = UserManager()
   
-  # Crear categoria
-  ok, category, message = category_manager.create(data)
+  # Crear usuario
+  ok, user, message = user_manager.create(data)
   
   if not ok:
     return jsonify(
@@ -64,17 +64,17 @@ def create(data: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria creada correctamente",
-      "response": category
+      "message": "Usuario creado correctamente",
+      "response": user
     }
   ), 200
 
 
 def update(id: int, data_update: dict):
-  category_manager = CategoryManager()
+  user_manager = UserManager()
   
-  # Actualizar categoria
-  ok, category, message = category_manager.update(id, data_update)
+  # Actualizar usuario
+  ok, user, message = user_manager.update(id, data_update)
 
   if not ok:
     return jsonify(
@@ -87,17 +87,17 @@ def update(id: int, data_update: dict):
   return jsonify(
     {
       "status": True,
-      "message": "Categoria actualizada correctamente",
-      "response": category
+      "message": "Usuario actualizado correctamente",
+      "response": user
     }
   ), 200
 
 
 def delete(id: int):
-  category_manager = CategoryManager()
+  user_manager = UserManager()
   
   # Eliminar categoria
-  ok, category, message = category_manager.delete(id)
+  ok, user, message = user_manager.delete(id)
 
   if not ok:
     return jsonify(
@@ -110,7 +110,7 @@ def delete(id: int):
   return jsonify(
     {
       "status": True,
-      "message": "Libro eliminado correctamente"
+      "message": "Usuario eliminado correctamente"
     }
   ), 200
   

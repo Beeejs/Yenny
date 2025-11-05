@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, StrictInt, StrictStr, field_validator
-from typing import List
+from typing import List, Literal
 from decimal import Decimal, ROUND_HALF_UP
 
 class SaleItem(BaseModel):
@@ -19,8 +19,8 @@ class SaleItem(BaseModel):
 
 class SaleCreate(BaseModel):
   id_usuario: StrictInt = Field(..., gt=0)
-  metodo_pago: StrictStr = Field(..., min_length=1, max_length=30)
-  estado: StrictStr = Field(..., min_length=1, max_length=30)
+  metodo_pago: Literal["EFECTIVO", "DEBITO", "CREDITO", "TRANSFERENCIA", "OTRO"] = "OTRO"
+  estado: Literal["COMPLETADA", "PENDIENTE", "ANULADA"] = "PENDIENTE"
   items: List[SaleItem] = Field(..., min_length=1)
 
   # Configuración para fallar si hay campos extra no definidos en el modelo
