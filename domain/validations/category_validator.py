@@ -1,4 +1,4 @@
-from pydantic import BaseModel, StrictStr, Field
+from pydantic import BaseModel, StrictStr, Field, ConfigDict
 from typing import Optional
 
 class CategoryCreate(BaseModel):
@@ -6,13 +6,17 @@ class CategoryCreate(BaseModel):
   descripcion: StrictStr = Field(..., max_length=250, description="Descripcion de Categoría")
   
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid" 
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )
 
 class CategoryUpdate(BaseModel):
   nombre: Optional[StrictStr] = Field(..., min_length=1, max_length=100, description="Nombre de Categoría")
   descripcion: Optional[StrictStr]= Field(..., max_length=250, description="Descripcion de Categoría")
   
-  class Config:
-    # Configuración para fallar si hay campos extra no definidos en el modelo
-    extra = "forbid"
+  # Configuración para fallar si hay campos extra no definidos en el modelo
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )

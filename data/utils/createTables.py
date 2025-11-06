@@ -116,16 +116,20 @@ def createTables(connection):
       print(f"Sentencia SQL no encontrada para la tabla '{table_name}'.")
 
 
-    # Crear índices únicos (para upsert de reportes)
+   # Crear índices únicos (para upsert de reportes)
+  try:
     cursor.execute("""
-        CREATE UNIQUE INDEX IF NOT EXISTS ux_reporte_dia
-        ON reporte_venta_diaria(id_usuario, dia);
+      CREATE UNIQUE INDEX IF NOT EXISTS ux_reporte_dia
+      ON reporte_venta_diaria (id_usuario, dia);
     """)
-
     cursor.execute("""
-        CREATE UNIQUE INDEX IF NOT EXISTS ux_pop_libro_dia
-        ON popularidad_libro_diaria(id_libro, dia);
+      CREATE UNIQUE INDEX IF NOT EXISTS ux_pop_libro_dia
+      ON popularidad_libro_diaria (id_libro, dia);
     """)
+  except Error as e:
+    print(f"Error al crear índices: {e}")
+    connection.rollback()
+    return
 
   # Confirmar los cambios de forma permanente
   connection.commit()

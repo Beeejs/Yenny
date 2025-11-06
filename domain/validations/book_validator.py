@@ -1,4 +1,4 @@
-from pydantic import BaseModel, StrictInt, StrictStr, StrictFloat, Field, field_validator
+from pydantic import BaseModel, StrictInt, StrictStr, StrictFloat, Field, field_validator, ConfigDict
 from typing import Optional, List
 
 class BookCreate(BaseModel):
@@ -32,8 +32,10 @@ class BookCreate(BaseModel):
     return v
   
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid" 
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )
 
 class BookUpdate(BaseModel):
   titulo: Optional[StrictStr] = Field(None, min_length=1, max_length=150)
@@ -44,6 +46,8 @@ class BookUpdate(BaseModel):
   anio : Optional[StrictInt] = Field(None, ge=1800, le=2100)
   categorias: Optional[List[int]] = None
   
-  class Config:
-    # Configuración para fallar si hay campos extra no definidos en el modelo
-    extra = "forbid"
+  # Configuración para fallar si hay campos extra no definidos en el modelo
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )

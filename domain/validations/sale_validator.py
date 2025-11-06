@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, Field, StrictInt, ConfigDict, field_validator
 from typing import List, Literal
 from decimal import Decimal, ROUND_HALF_UP
 
@@ -14,8 +14,10 @@ class SaleItem(BaseModel):
     return v.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
   
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid" 
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )
 
 class SaleCreate(BaseModel):
   id_usuario: StrictInt = Field(..., gt=0)
@@ -24,5 +26,7 @@ class SaleCreate(BaseModel):
   items: List[SaleItem] = Field(..., min_length=1)
 
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid" 
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )

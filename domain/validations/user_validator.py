@@ -1,6 +1,6 @@
 # domain/validations/user_validator.py
 from typing import Optional, Literal
-from pydantic import BaseModel, EmailStr, Field, StrictStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, StrictStr, field_validator, ConfigDict
 
 class UserCreate(BaseModel):
   nombre: StrictStr = Field(..., min_length=3, max_length=20, description="Nombre de usuario")
@@ -15,8 +15,10 @@ class UserCreate(BaseModel):
     return v.strip()
 
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid"
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )
 
 
 class UserUpdate(BaseModel):
@@ -30,5 +32,7 @@ class UserUpdate(BaseModel):
     return v.strip() if v is not None else v
 
   # Configuración para fallar si hay campos extra no definidos en el modelo
-  class Config:
-    extra = "forbid"
+  model_config = ConfigDict(
+    extra="forbid",
+    str_strip_whitespace=True,
+  )
