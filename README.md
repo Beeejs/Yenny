@@ -40,7 +40,6 @@ El proyecto sigue una estructura modular para separar las responsabilidades, fac
 │   ├── repositories
 │   └── utils
 ├── domain
-│   ├── entities
 │   ├── managers
 │   └── validations
 ├── presentation
