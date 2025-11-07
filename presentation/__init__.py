@@ -1,4 +1,5 @@
 # presentation/app.py
+import os
 from flask import Flask, g
 from flask_cors import CORS 
 import sqlite3
@@ -8,12 +9,15 @@ def create_app():
   # indicamos dónde están los templates (según tu estructura)
   app = Flask(__name__)
 
+  # Configuración de entorno
+  ENV = os.environ.get('FLASK_ENV', 'development')
+
   # Configuración de sesión
-  app.secret_key = "clave-super-secreta"  # se peude cambiar
+  app.secret_key = os.environ.get("SECRET_KEY", "fallback_secret_for_dev")
   app.config["SESSION_COOKIE_NAME"] = "session"
   app.config["SESSION_COOKIE_HTTPONLY"] = True
   app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-  app.config["SESSION_COOKIE_SECURE"] = False  # HTTPS
+  app.config["SESSION_COOKIE_SECURE"] = ENV == 'production'  # HTTPS
 
   # Habilitar CORS con cookies
   CORS(app, supports_credentials=True, origins=["http://localhost:5173", "http://127.0.0.1:5173"])

@@ -1,27 +1,107 @@
 ### 📚 YENNY (Librería) - Sistema de Gestión de Libros y Ventas
 
-**Autores:** Anthony Salazar, Facundo Marconi, Lukas Galarza y Mariano Williams  
-**Curso:** Análisis y Metodología de Sistemas  
+**Autores:** Anthony Salazar, Facundo Marconi, Lukas Galarza y Mariano Williams 
+**Curso:** Análisis y Metodología de Sistemas 
 **Institución:** Da Vinci
 
-Este documento describe el proyecto de análisis y diseño de un sistema de gestión para la librería YENNY, enfocado en optimizar la administración de inventario y ventas.
+Este documento describe el proyecto de análisis y diseño de un sistema de gestión para la librería YENNY, enfocado en optimizar la administración de inventario y ventas, desarrollado en Python con el framework Flask.
 
 ---
 
 ### 📖 Descripción General del Proyecto
 
-El objetivo principal es desarrollar un sistema que permita a los empleados de la librería YENNY realizar las siguientes tareas de manera eficiente:
+El objetivo principal es desarrollar un sistema robusto y escalable que permita a los empleados de la librería YENNY realizar las siguientes tareas de manera eficiente:
 
-* **Registro y Gestión de Libros**: Permitirá registrar nuevos libros, con su categoría y cantidad disponible, para mantener el inventario actualizado.
-* **Gestión de Precios**: Facilitará el ajuste de precios de los libros en el sistema.
-* **Procesamiento de Ventas**: Proporcionará una interfaz intuitiva para registrar las ventas diarias.
+* **Gestión de Librios y sus categorías:** 
+* **Gestión de Ventas:**
+* **Reportes:** Generación de informe de venta diarías y popularidad de los libros.
 
 ---
 
-### 🎯 Enfoque y Metodología
+### ⭐ Características Destacadas
 
-El proyecto se desarrolla bajo un enfoque de **Análisis y Diseño de Sistemas**. Se aplicarán las siguientes metodologías:
+* **Arquitectura Limpia (Clean Architecture):** Implementación de capas de dominio, datos y presentación para asegurar mantenibilidad y testabilidad.
+* **Tecnología Backend:** Uso de **Flask** para el desarrollo de APIs RESTful.
+* **Validación Estricta:** Uso de **Pydantic** para la validación de datos en todas las capas de la aplicación.
+* **Comandos CLI Personalizados:** Utilización del *command line interface* de Flask para tareas de administración, como la creación inicial de usuarios.
 
-* **Análisis de Requisitos**: Se identificarán las necesidades funcionales y no funcionales del sistema a través de entrevistas con los empleados y el dueño de la librería.
-* **Diagramas de Flujo de Datos (DFD)**: Se utilizarán para visualizar el flujo de información dentro del sistema, mostrando cómo los datos se mueven y se transforman.
-* **Diagramas Entidad Relación (DER)**: Se diseñará la estructura de datos del sistema, representando las entidades principales.
+---
+
+### 💻 Estructura del Proyecto
+
+El proyecto sigue una estructura modular para separar las responsabilidades, facilitando el desarrollo y las pruebas unitarias.
+
+***
+
+```sh 
+├── data
+│   ├── adapter
+│   ├── database
+│   ├── repositories
+│   └── utils
+├── domain
+│   ├── entities
+│   ├── managers
+│   └── validations
+├── presentation
+│   ├── commands
+│   ├── controllers
+│   ├── middlewares
+│   ├── routes
+├── test
+```
+
+---
+
+## 🛠️ Instalación y Ejecución
+
+### Requisitos
+
+Asegúrate de tener **Python 3.x** instalado.
+
+### 1. Instalación de Dependencias
+
+Ejecuta el siguiente comando para instalar todas las librerías necesarias:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Creación de Base de Datos
+
+Ejecutar el siguiente comando para crear la base de datos en el apartado dee `data/database`:
+
+```bash
+py main.py
+```
+
+### 3. Creación del Usuario Administrador Inicial
+
+Antes de iniciar el servidor, es necesario crear la cuenta de administrador inicial. Este comando utiliza un comando CLI personalizado:
+
+```bash
+flask --app presentation.app:create_app create-admin --email admin@admin
+```
+
+### 4. Ejecución del Servidor
+
+Para iniciar la aplicación en modo de desarrollo, utiliza el siguiente comando. El flag `--debug` permite la recarga automática ante cambios:
+
+```bash
+flask run --debug
+```
+
+### 5. Ejecución del Servidor
+
+Para verificar el correcto funcionamiento de las capas del Dominio y Repositorios, ejecuta el siguiente comando:
+
+```bash
+pytest -v
+```
+
+### 🔗 Integración y Pruebas con Postman
+La colección completa de la API, incluyendo todos los endpoints necesarios para probar el sistema, está disponible públicamente en ****Postman**:
+
+**[Colección Pública de Postman (YENNY API)](https://fm-team04.postman.co/workspace~ac37aca3-35ee-4b9d-80a9-8d4d65df6713/folder/26505099-db8f7d64-45b2-4688-b56b-04e95281f226?action=share&source=copy-link&creator=26505099&ctx=documentation)**
+
+Se recomienda importar esta colección para realizar pruebas manuales contra el servidor local de Flask.
