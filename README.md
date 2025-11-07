@@ -101,7 +101,7 @@ py main.py
 Antes de iniciar el servidor, es necesario crear la cuenta de administrador inicial. Este comando utiliza un comando CLI personalizado:
 
 ```bash
-flask --app presentation.app:create_app create-admin --email admin@admin
+flask --app presentation.app:create_app create-admin --email admin@admin.com
 ```
 
 ### 5. Ejecución del Servidor
@@ -124,6 +124,6 @@ pytest -v
 ### 🔗 Integración y Pruebas con Postman
 La colección completa de la API, incluyendo todos los endpoints necesarios para probar el sistema, está disponible públicamente en **Postman**:
 
-**[Colección Pública de Postman (YENNY API)](https://fm-team04.postman.co/workspace~ac37aca3-35ee-4b9d-80a9-8d4d65df6713/folder/26505099-db8f7d64-45b2-4688-b56b-04e95281f226?action=share&source=copy-link&creator=26505099&ctx=documentation)**
+**[Colección Pública de Postman (YENNY API)](https://fm-team04.postman.co/workspace/My-Workspace~ac37aca3-35ee-4b9d-80a9-8d4d65df6713/folder/26505099-db8f7d64-45b2-4688-b56b-04e95281f226?action=share&creator=26505099&ctx=documentation)**
 
 Se recomienda importar esta colección para realizar pruebas manuales contra el servidor local de Flask.
