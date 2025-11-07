@@ -59,7 +59,28 @@ El proyecto sigue una estructura modular para separar las responsabilidades, fac
 
 Asegúrate de tener **Python 3.x** instalado.
 
-### 1. Instalación de Dependencias
+### 1. Preparar entorno virtual
+
+Instalar nuestro entorno virtual.
+```bash
+python -m venv .venv
+```
+
+Luego de eso en la linea de comandos activarlo:
+
+```bash
+.\.venv\Scripts\activate
+```
+
+Cabe aclarar que si su sistema operativo es Windows y utiliza poweshell para permitir que se ejcuten `scripts locales` como el .venv se utiliza:
+
+```bash
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+
+
+### 2. Instalación de Dependencias
 
 Ejecuta el siguiente comando para instalar todas las librerías necesarias:
 
@@ -67,7 +88,7 @@ Ejecuta el siguiente comando para instalar todas las librerías necesarias:
 pip install -r requirements.txt
 ```
 
-### 2. Creación de Base de Datos
+### 3. Creación de Base de Datos
 
 Ejecutar el siguiente comando para crear la base de datos en el apartado dee `data/database`:
 
@@ -75,7 +96,7 @@ Ejecutar el siguiente comando para crear la base de datos en el apartado dee `da
 py main.py
 ```
 
-### 3. Creación del Usuario Administrador Inicial
+### 4. Creación del Usuario Administrador Inicial
 
 Antes de iniciar el servidor, es necesario crear la cuenta de administrador inicial. Este comando utiliza un comando CLI personalizado:
 
@@ -83,7 +104,7 @@ Antes de iniciar el servidor, es necesario crear la cuenta de administrador inic
 flask --app presentation.app:create_app create-admin --email admin@admin
 ```
 
-### 4. Ejecución del Servidor
+### 5. Ejecución del Servidor
 
 Para iniciar la aplicación en modo de desarrollo, utiliza el siguiente comando. El flag `--debug` permite la recarga automática ante cambios:
 
@@ -91,13 +112,14 @@ Para iniciar la aplicación en modo de desarrollo, utiliza el siguiente comando.
 flask run --debug
 ```
 
-### 5. Ejecución del Servidor
+### 6. Ejecución del Servidor
 
 Para verificar el correcto funcionamiento de las capas del Dominio y Repositorios, ejecuta el siguiente comando:
 
 ```bash
 pytest -v
 ```
+
 
 ### 🔗 Integración y Pruebas con Postman
 La colección completa de la API, incluyendo todos los endpoints necesarios para probar el sistema, está disponible públicamente en **Postman**:
