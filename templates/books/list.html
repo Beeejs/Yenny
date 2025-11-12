@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título y botón Nuevo -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Books</h1>
+        <a href="{{ url_for('web_book.new_book') }}" class="btn btn-primary">Nuevo</a>
+    </div>
+
+    {% if books %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th>Editorial</th>
+                <th>Año</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book['titulo'] }}</td>
+                <td>{{ book['autor'] }}</td>
+                <td>{{ book['editorial'] }}</td>
+                <td>{{ book['anio'] }}</td>
+                <td>{{ book['precio'] }}</td>
+                <td>{{ book['stock'] }}</td>
+                <td>
+                    <a href="{{ url_for('web_book.view_book', book_id=book['id_libro']) }}" class="btn btn-info btn-sm">Ver</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No books found.</p>
+    {% endif %}
+</div>
+{% endblock %}

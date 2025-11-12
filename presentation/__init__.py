@@ -1,13 +1,20 @@
 # presentation/app.py
 import os
-from flask import Flask, g
+from flask import Flask, g, render_template
 from flask_cors import CORS 
 import sqlite3
 from data.adapter.mySqliteAdapter import MySqliteAdapter
+from presentation.middlewares.web.login_required import login_required
+
 
 def create_app():
+  root_dir = os.path.dirname(__file__)
+  # Indicamos donde están los templates
+  template_dir = os.path.join(root_dir, '..', 'templates')
+  static_dir   = os.path.join(root_dir, "..", "static")
+
   # indicamos dónde están los templates (según tu estructura)
-  app = Flask(__name__)
+  app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
   # Configuración de entorno
   ENV = os.environ.get('FLASK_ENV', 'development')
@@ -39,25 +46,54 @@ def create_app():
 
   # Cada vez que se cierre el request, se cierra la conexión
   @app.teardown_appcontext
-  def close_db(exception=None):
+  def close_db(exception=None):    
     db = g.pop("db", None)
     if db is not None:
       db.close()
+
+  # --- Rutas Web ---
+  @app.route("/")
+  @login_required
+  def home():
+    return render_template("index.html")
+
+  # Auth
+  from .routes.web.auth import web_auth_bp
+  app.register_blueprint(web_auth_bp)
+
+  # Libros
+  from .routes.web.book import web_book_bp
+  app.register_blueprint(web_book_bp)
+
+  """
+    # Categorias
+    from .routes.web.category import web_category_bp
+    app.register_blueprint(web_category_bp)
+
+    # Ventas
+    from .routes.web.sale import web_sale_bp
+    app.register_blueprint(web_sale_bp)
+
+    # Usuarios
+    from .routes.web.user import web_user_bp
+    app.register_blueprint(web_user_bp)
+  """
+
   
-  # --- Rutas ---
-  from .routes.auth import auth_bp
+  # --- Rutas Api ---
+  from .routes.api.auth import auth_bp
   app.register_blueprint(auth_bp, url_prefix="/api")
 
-  from .routes.book import book_bp
+  from .routes.api.book import book_bp
   app.register_blueprint(book_bp, url_prefix="/api/book")
 
-  from .routes.category import category_bp
+  from .routes.api.category import category_bp
   app.register_blueprint(category_bp, url_prefix="/api/category")
 
-  from .routes.sale import sale_bp
+  from .routes.api.sale import sale_bp
   app.register_blueprint(sale_bp, url_prefix="/api/sale")
 
-  from .routes.user import user_bp
+  from .routes.api.user import user_bp
   app.register_blueprint(user_bp, url_prefix="/api/user")
 
   # --- Registro de comandos CLI ---

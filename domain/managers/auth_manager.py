@@ -50,7 +50,7 @@ class AuthManager:
       # Validamos credenciales
       password_hash = user.get("password")
       if not check_password_hash(password_hash, data["password"]):
-        return False, [], "Nombre de usuario o contraseña incorrectos."
+        return False, [], "Mail de usuario o contraseña incorrectos."
       
       # Guardamos session
       session["user_id"] = user["id_usuario"]

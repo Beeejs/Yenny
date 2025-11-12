@@ -1,10 +1,10 @@
 # presentation/routes/sale.py
 from flask import Blueprint, request
 # controller
-from ..controllers import sale_controller
+from ...controllers import sale_controller
 # middlewares
-from ..middlewares.require_auth import require_auth
-from ..middlewares.require_roles import require_roles
+from ...middlewares.api.require_auth import require_auth
+from ...middlewares.api.require_roles import require_roles
 
 # Creamos el Blueprint
 sale_bp = Blueprint("sale", __name__)

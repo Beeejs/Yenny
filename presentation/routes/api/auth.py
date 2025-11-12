@@ -1,7 +1,7 @@
 # presentation/routes/auth.py
 from flask import Blueprint, request
 # controller
-from ..controllers import auth_controller
+from ...controllers import auth_controller
 
 # Creamos el Blueprint
 auth_bp = Blueprint("auth", __name__)

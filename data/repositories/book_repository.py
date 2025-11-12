@@ -35,7 +35,7 @@ class BookRepository:
   def get_one(self, book_id: int) -> Optional[Dict[str, Any]]:
     cursor = self.db.cursor()
     cursor.execute(
-      "SELECT id_libro, titulo, editorial, autor, precio, stock FROM libro WHERE id_libro = ?",
+      "SELECT id_libro, titulo, editorial, anio, autor, precio, stock FROM libro WHERE id_libro = ?",
       (book_id,)
     )
 
@@ -46,9 +46,10 @@ class BookRepository:
         "id_libro": book[0],
         "titulo": book[1],
         "editorial": book[2],
-        "autor": book[3],
-        "precio": book[4],
-        "stock": book[5]
+        "anio": book[3],
+        "autor": book[4],
+        "precio": book[5],
+        "stock": book[6]
       }
     return None
 
