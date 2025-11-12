@@ -79,4 +79,15 @@ def edit_book(book_id):
   
   return render_template("books/view.html", book=book)
 
+@web_book_bp.get("/books/<int:book_id>/delete")
+def delete_book (book_id):
+  book_manager = BookManager()
+  ok, deleted_id, message = book_manager.delete(book_id)
+  if ok:
+        flash(f"Libro (ID {deleted_id}) eliminado correctamente.", "success")
+  else:
+        flash(message or "No se pudo eliminar el libro.", "danger")
+
+  return redirect(url_for("web_book.list_books"))
+
 

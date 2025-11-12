@@ -112,6 +112,7 @@ def createTables(connection):
           # Si falla una creación, deshacemos todos los cambios
           connection.rollback()
           return 
+        
     else:
       print(f"Sentencia SQL no encontrada para la tabla '{table_name}'.")
 
@@ -133,4 +134,4 @@ def createTables(connection):
 
   # Confirmar los cambios de forma permanente
   connection.commit()
-  print("✅ Creación de todas las tablas completada y confirmada.")
+  print("Tablas creadas en yenny.db ")

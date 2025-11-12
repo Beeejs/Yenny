@@ -31,7 +31,13 @@
                 <td>{{ book['precio'] }}</td>
                 <td>{{ book['stock'] }}</td>
                 <td>
-                    <a href="{{ url_for('web_book.view_book', book_id=book['id_libro']) }}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{{ url_for('web_book.view_book', book_id=book['id_libro']) }}" class="btn btn-info btn-sm">Ver
+                    </a>         
+                    <a href="{{ url_for('web_book.delete_book', book_id=book['id_libro']) }}"
+                    class="btn btn-danger btn-sm"
+                    onclick="return confirm('¿Seguro que deseas eliminar este libro?');">
+                    Eliminar
+                    </a>
                 </td>
             </tr>
             {% endfor %}

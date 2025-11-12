@@ -65,6 +65,10 @@ def create_app():
   from .routes.web.book import web_book_bp
   app.register_blueprint(web_book_bp)
 
+  # Ventas
+  from .routes.web.sale import web_sale_bp
+  app.register_blueprint(web_sale_bp)
+
   """
     # Categorias
     from .routes.web.category import web_category_bp

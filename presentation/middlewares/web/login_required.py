@@ -7,6 +7,6 @@ def login_required(fn):
   def wrapper(*args, **kwargs):
     if not session.get("user_id"):
       flash("Debés iniciar sesión.", "warning")
-      return redirect(url_for("web_auth.login_get"))
+      return redirect(url_for("web_auth.login"))
     return fn(*args, **kwargs)
   return wrapper

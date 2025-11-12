@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import os
 
+from data.utils.data_default import cargar_libros_default
 from data.utils.createTables import createTables
 
 class MySqliteAdapter:
@@ -30,7 +31,9 @@ class MySqliteAdapter:
     conn = self.connect()
     if conn:
       createTables(conn)
+      cargar_libros_default(conn)
       conn.close()
       print("Tablas creadas correctamente.")
+
     else:
       print("No se pudo configurar la base de datos.")

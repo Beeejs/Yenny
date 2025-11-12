@@ -6,4 +6,5 @@ from data.adapter.mySqliteAdapter import MySqliteAdapter
 if __name__ == "__main__":
   adapter = MySqliteAdapter()
   adapter.setup_database()
+  
   print("Base creada correctamente.")

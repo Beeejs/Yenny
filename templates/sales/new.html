@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Venta{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Nueva Venta</h1>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">ID Usuario</label>
+      <input type="number" class="form-control" name="id_usuario" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="datetime-local" class="form-control" name="fecha" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Método de Pago</label>
+      <select class="form-select" name="metodo_pago" required>
+        <option value="">Seleccionar...</option>
+        <option value="EFECTIVO">Efectivo</option>
+        <option value="DEBITO">Débito</option>
+        <option value="CREDITO">Crédito</option>
+        <option value="TRANSFERENCIA">Transferencia</option>
+        <option value="OTRO">Otro</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estado</label>
+      <select class="form-select" name="estado" required>
+        <option value="">Seleccionar...</option>
+        <option value="COMPLETADA">Completada</option>
+        <option value="PENDIENTE">Pendiente</option>
+        <option value="ANULADA">Anulada</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear</button>
+    <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
