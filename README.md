@@ -97,10 +97,14 @@ py main.py
 
 ### 4. Creación del Usuario Administrador Inicial
 
-Antes de iniciar el servidor, es necesario crear la cuenta de administrador inicial. Este comando utiliza un comando CLI personalizado:
+Antes de iniciar el servidor, es necesario crear la cuenta de administrador inicial y la del gerente. Este comando utiliza un comando CLI personalizado:
 
 ```bash
 flask --app presentation.app:create_app create-admin --email admin@admin.com
+```
+
+```bash
+flask --app presentation.app:create_app create-manager --email manager@manager.com
 ```
 
 ### 5. Ejecución del Servidor

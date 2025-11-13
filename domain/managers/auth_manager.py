@@ -54,6 +54,7 @@ class AuthManager:
       
       # Guardamos session
       session["user_id"] = user["id_usuario"]
+      session["nombre"] = user["nombre"]
       session["email"] = user["email"]
       session["rol"] = user["rol"]
 

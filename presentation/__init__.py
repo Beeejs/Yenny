@@ -10,9 +10,10 @@ from presentation.middlewares.web.login_required import login_required
 def create_app():
   root_dir = os.path.dirname(__file__)
   # Indicamos donde están los templates
-  template_dir = os.path.join(root_dir, '..', 'templates')
-  static_dir   = os.path.join(root_dir, "..", "static")
-
+  template_dir = os.path.join(root_dir, 'templates')
+  static_dir   = os.path.join(template_dir, 'static')
+  print(f"Templates: {template_dir}")
+  print(f"Static: {static_dir}")
   # indicamos dónde están los templates (según tu estructura)
   app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
@@ -69,19 +70,9 @@ def create_app():
   from .routes.web.sale import web_sale_bp
   app.register_blueprint(web_sale_bp)
 
-  """
-    # Categorias
-    from .routes.web.category import web_category_bp
-    app.register_blueprint(web_category_bp)
-
-    # Ventas
-    from .routes.web.sale import web_sale_bp
-    app.register_blueprint(web_sale_bp)
-
-    # Usuarios
-    from .routes.web.user import web_user_bp
-    app.register_blueprint(web_user_bp)
-  """
+  # Reportes
+  from .routes.web.report import web_report_bp
+  app.register_blueprint(web_report_bp)
 
   
   # --- Rutas Api ---
@@ -101,7 +92,7 @@ def create_app():
   app.register_blueprint(user_bp, url_prefix="/api/user")
 
   # --- Registro de comandos CLI ---
-  from .commands.create_admin import register_commands
+  from .commands.create_admin_manager import register_commands
   register_commands(app)
 
   return app

@@ -19,6 +19,7 @@ def format_pydantic_errors(errors: List[Dict[str, Any]]) -> List[str]:
     loc = error['loc'] # Tupla con la ubicación del error, ej: ('anio',)
     msg = error['msg']
     type_error = error['type'] # El código del error de Pydantic, ej: 'extra_forbidden'
+    print(error)
 
     # Determinar el nombre del campo. Si loc tiene más de un elemento, tomamos el primero.
     field_name = str(loc[0]) if loc else "Datos"

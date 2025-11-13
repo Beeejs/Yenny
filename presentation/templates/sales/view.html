@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Detalle de Venta{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h1>Detalle de Venta</h1>
+
+  <div class="mb-3">
+    <strong>ID Venta:</strong> {{ sale['id_venta'] }}
+  </div>
+
+  <div class="mb-3">
+    <strong>Fecha y Hora:</strong> {{ sale['fecha'] }}
+  </div>
+
+  <div class="mb-3">
+    <strong>Método de Pago:</strong> {{ sale['metodo_pago'] }}
+  </div>
+
+  <div class="mb-3">
+    <strong>Estado:</strong> {{ sale['estado'] }}
+  </div>
+
+  <hr class="my-4">
+
+  <h2>Productos en esta venta</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID Libro</th>
+        <th>Título</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in sale_items %}
+      <tr>
+        <td>{{ item['id_libro'] }}</td>
+        <td>{{ item['titulo'] }}</td>
+        <td>{{ item['cantidad'] }}</td>
+        <td>${{ "%.2f"|format(item['precio_unitario']) }}</td>
+        <td>${{ "%.2f"|format(item['subtotal']) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-secondary">Volver</a>
+</div>
+{% endblock %}

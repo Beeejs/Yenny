@@ -23,3 +23,24 @@ def register_commands(app):
       }
       repo.create(data)
       click.echo(f"✅ Admin creado: {email}")
+  
+    # Comando para crear gerente
+  @app.cli.command("create-manager")
+  @click.option("--email", required=True, help="Email del gerente")
+  @click.option("--nombre", default="gerente", help="Nombre del gerente")
+  @click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True)
+  def create_manager(email, nombre, password):
+    with app.app_context():
+      repo = UserRepository()
+      exists = repo.get_one(email=email)
+      if exists:
+          click.echo(f"Ya existe un usuario con email {email}")
+          return
+      data = {
+        "nombre": nombre,
+        "email": email,
+        "rol": "GERENTE",
+        "password": generate_password_hash(password),
+      }
+      repo.create(data)
+      click.echo(f"✅ Gerente creado: {email}")

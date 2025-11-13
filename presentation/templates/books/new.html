@@ -30,6 +30,20 @@
             <label class="form-label">Stock</label>
             <input type="number" class="form-control" name="stock" required>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Categorías</label>
+            {% if categories %}
+                <select class="form-select" name="categorias" multiple aria-label="Seleccionar categorías">
+                    {% for cat in categories %}
+                        <option value="{{ cat['id_categoria'] }}">{{ cat['nombre'] }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <span class="text-muted">No hay categorías cargadas</span>
+            {% endif %}
+        </div>
+
+
         <button type="submit" class="btn btn-success">Crear</button>
         <a href="{{ url_for('web_book.list_books') }}" class="btn btn-secondary">Cancelar</a>
     </form>

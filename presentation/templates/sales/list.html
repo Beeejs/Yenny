@@ -4,7 +4,7 @@
 <div class="container mt-5">
   <!-- Título y botón Nuevo -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Sales</h1>
+    <h1>Ventas</h1>
     <a href="{{ url_for('web_sale.new_sale') }}" class="btn btn-primary">Nuevo</a>
   </div>
 
@@ -33,7 +33,7 @@
              class="btn btn-info btn-sm">Ver</a>
           <a href="{{ url_for('web_sale.delete_sale', sale_id=sale['id_venta']) }}"
              class="btn btn-danger btn-sm"
-             onclick="return confirm('¿Seguro que deseas eliminar esta venta?');">
+             >
              Eliminar
           </a>
         </td>

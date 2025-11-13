@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <!-- Título y botón Nuevo -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Books</h1>
+        <h1>Libros</h1>
         <a href="{{ url_for('web_book.new_book') }}" class="btn btn-primary">Nuevo</a>
     </div>
 
@@ -34,8 +34,7 @@
                     <a href="{{ url_for('web_book.view_book', book_id=book['id_libro']) }}" class="btn btn-info btn-sm">Ver
                     </a>         
                     <a href="{{ url_for('web_book.delete_book', book_id=book['id_libro']) }}"
-                    class="btn btn-danger btn-sm"
-                    onclick="return confirm('¿Seguro que deseas eliminar este libro?');">
+                    class="btn btn-danger btn-sm">
                     Eliminar
                     </a>
                 </td>

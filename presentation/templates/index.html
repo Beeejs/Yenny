@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+
+  <!-- Saludo centrado -->
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Bienvenido a Yenny</h1>
+    {% if session.get('nombre') %}
+      <p class="lead">Hola, {{ session.get('nombre') }}! Listo para gestionar la librería?</p>
+    {% else %}
+      <p class="lead">Seleccioná una opción del menú para comenzar.</p>
+    {% endif %}
+  </div>
+
+  <!-- Cards principales centradas -->
+  <div class="d-flex justify-content-center flex-wrap gap-4">
+
+    <div class="card shadow-sm text-center border-primary" style="width: 18rem;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">Libros</h5>
+        <p class="card-text flex-grow-1">Registrar, editar y consultar libros disponibles en la librería.</p>
+        <a href="{{ url_for('web_book.list_books') }}" class="btn btn-primary mt-3">Gestionar Libros</a>
+      </div>
+    </div>
+
+    <div class="card shadow-sm text-center border-success" style="width: 18rem;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">Ventas</h5>
+        <p class="card-text flex-grow-1">Ingresar nuevas ventas, consultar ventas realizadas y su estado.</p>
+        <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-success mt-3">Ver Ventas</a>
+      </div>
+    </div>
+
+    <div class="card shadow-sm text-center border-warning" style="width: 18rem;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">Reportes</h5>
+        <p class="card-text flex-grow-1">Generar reportes diarios, estadísticas de ventas y popularidad de libros.</p>
+        <a href="{{ url_for('web_report.list_reports') }}" class="btn btn-warning mt-3 text-dark">Ver Reportes</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

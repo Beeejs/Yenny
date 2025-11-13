@@ -41,6 +41,15 @@ class BookRepository:
 
     book = cursor.fetchone()
 
+    # Traer categorías asociadas
+    cursor.execute(
+      "SELECT c.id_categoria, c.nombre FROM categoria c "
+      "JOIN libro_categoria lc ON lc.id_categoria = c.id_categoria "
+      "WHERE lc.id_libro = ?",
+      (book_id,)
+    )
+    categories = [{"id_categoria": row[0], "nombre": row[1]} for row in cursor.fetchall()]
+    
     if book:
       return {
         "id_libro": book[0],
@@ -49,7 +58,8 @@ class BookRepository:
         "anio": book[3],
         "autor": book[4],
         "precio": book[5],
-        "stock": book[6]
+        "stock": book[6],
+        "categorias": categories
       }
     return None
 

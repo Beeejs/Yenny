@@ -7,7 +7,7 @@ def require_roles(*roles):
     @wraps(fn)
     def wrapper(*args, **kwargs):
       if session.get("rol") not in roles:
-        flash("No tenés permisos para ver esta página.", "danger")
+        flash("No tenés permisos para realizar esta acción o ver esta sección.", "danger")
         return redirect(url_for("home"))
       return fn(*args, **kwargs)
     return wrapper

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Reporte de Ventas Diarias</h1>
+
+    <!-- Formulario de Filtros -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('web_report.list_reports') }}" class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label">Fecha Inicio</label>
+                    <input type="date" class="form-control" name="start_date" value="{{ start_date }}">
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">Fecha Fin</label>
+                    <input type="date" class="form-control" name="end_date" value="{{ end_date }}">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resumen de Totales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Ventas</h5>
+                    <h2>{{ total_ventas }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Total Unidades</h5>
+                    <h2>{{ total_unidades }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Total Monto</h5>
+                    <h2>${{ "%.2f"|format(total_monto) }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de Reportes -->
+    {% if reports %}
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Ventas</th>
+                        <th>Unidades</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ report['dia'] }}</td>
+                        <td>{{ report['nombre_usuario'] }}</td>
+                        <td>{{ report['ventas'] }}</td>
+                        <td>{{ report['unidades'] }}</td>
+                        <td>${{ "%.2f"|format(report['monto']) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay reportes disponibles para el rango de fechas seleccionado.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

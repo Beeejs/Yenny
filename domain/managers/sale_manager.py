@@ -55,10 +55,13 @@ class SaleManager:
           return False, [], "El usuario no existe."
         
         for it in payload["items"]:
-          # validar libros
+          # validar libros y su stock
           book = self.repo_book.get_one(it["id_libro"])
           if(book is None):
             return False, [], f"El libro {it['id_libro']} no existe."
+          
+          if book["stock"] < it["cantidad"]:
+            return False, [], f"Stock insuficiente para el libro '{book['titulo']}'. Disponible: {book['stock']}."
         
         new_sale_id = self.repo.create({
           "id_usuario": payload["id_usuario"],
@@ -67,24 +70,37 @@ class SaleManager:
           "estado": payload["estado"]
         })
 
+        # Insertamos detalles. El precio unitario lo toma del libro
         self.repo.insert_detalles(
           new_sale_id,
           [
             {
               "id_libro": it["id_libro"],
               "cantidad": it["cantidad"],
-              "precio_unitario": it["precio_unitario"],
-              "subtotal": (it["precio_unitario"] * it["cantidad"])
+              "precio_unitario": book["precio"],
+              "subtotal": (book["precio"] * it["cantidad"])
             }
             for it in payload["items"]
+            for book in [self.repo_book.get_one(it["id_libro"])]
           ]
         )
+
+        # Descontar stock solo si la venta está COMPLETADA
+        if payload["estado"] == "COMPLETADA":
+          for it in payload["items"]:
+            book = self.repo_book.get_one(it["id_libro"])
+            new_stock = book["stock"] - it["cantidad"]
+
+            self.repo_book.update(it["id_libro"], {
+              **book,
+              "stock": new_stock   # actualizar solo el stock
+            })
 
         day = date[:10]
 
         sale_qty = 1
         books_qty = sum(int(it["cantidad"]) for it in payload["items"])
-        total = float(sum(it["precio_unitario"] * it["cantidad"] for it in payload["items"]))
+        total = float(sum(self.repo_book.get_one(it["id_libro"])["precio"] * it["cantidad"] for it in payload["items"]))
 
         # reporte_venta_diaria
         self.repo.upsert_reporte_diario(
@@ -93,8 +109,9 @@ class SaleManager:
 
         # popularidad_libro_diaria
         for it in payload["items"]:
+          book = self.repo_book.get_one(it["id_libro"])
           items_qty = int(it["cantidad"])
-          income = float(it["precio_unitario"] * it["cantidad"])
+          income = float(book["precio"] * it["cantidad"])
           self.repo.upsert_popularidad_libro(it["id_libro"], day, items_qty, income)
 
         self.repo.db.commit()
@@ -116,12 +133,12 @@ class SaleManager:
 
   def delete(self, sale_id: int) -> Tuple[bool, Dict[str, Any] | None, str | None]:
     try:
-      sale_to_delete = self.repo.get_one(sale_id)
-      if sale_to_delete is None:
+      sale_row_count = self.repo.get_one(sale_id)
+      if sale_row_count is None:
         return False, [], "Venta no encontrada."
           
       self.repo.delete(sale_id)
       
-      return True, sale_to_delete["id_venta"], ""
+      return True, sale_row_count, ""
     except Exception as e:
       return False, [],  "Exception: Algo salio mal ->" + str(e)

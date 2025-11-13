@@ -47,8 +47,6 @@ def register():
 
     return render_template("auth/register.html")
 
-
-# --- LOGOUT ---
 @web_auth_bp.route("/logout")
 def logout():
     auth_manager = AuthManager()

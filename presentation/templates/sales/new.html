@@ -1,16 +1,9 @@
 {% extends "base.html" %}
-
 {% block title %}Nueva Venta{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
   <h1>Nueva Venta</h1>
-  <form method="POST">
-    <div class="mb-3">
-      <label class="form-label">ID Usuario</label>
-      <input type="number" class="form-control" name="id_usuario" required>
-    </div>
-
+  <form method="POST" id="saleForm">
     <div class="mb-3">
       <label class="form-label">Fecha</label>
       <input type="datetime-local" class="form-control" name="fecha" required>
@@ -38,8 +31,47 @@
       </select>
     </div>
 
+    <hr>
+
+    <h4>Items</h4>
+    <div id="items-container"></div>
+
+    <button type="button" class="btn btn-sm btn-outline-primary mb-3" id="addItem">+ Agregar libro</button>
+
     <button type="submit" class="btn btn-success">Crear</button>
     <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-secondary">Cancelar</a>
   </form>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("items-container");
+  const addBtn = document.getElementById("addItem");
+
+  addBtn.addEventListener("click", () => {
+    const item = document.createElement("div");
+    item.classList.add("row", "g-2", "align-items-end", "mb-2");
+    item.innerHTML = `
+      <div class="col-md-4">
+        <label class="form-label">ID Libro</label>
+        <input type="number" class="form-control" name="id_libro[]" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Cantidad</label>
+        <input type="number" class="form-control" name="cantidad[]" min="1" required>
+      </div>
+      <div class="col-md-2 text-end">
+        <button type="button" class="btn btn-danger btn-sm removeItem">X</button>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("removeItem")) {
+      e.target.closest(".row").remove();
+    }
+  });
+});
+</script>
 {% endblock %}
