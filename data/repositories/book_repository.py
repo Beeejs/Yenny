@@ -18,17 +18,29 @@ class BookRepository:
     list_books = []
 
     for row in books:
+      book_id = row[0]
+
+      # Obtener categorías del libro
+      cursor.execute(
+        "SELECT c.id_categoria, c.nombre FROM categoria c "
+        "JOIN libro_categoria lc ON lc.id_categoria = c.id_categoria "
+        "WHERE lc.id_libro = ?",
+        (book_id,)
+      )
+      categories = [{"id_categoria": cat[0], "nombre": cat[1]} for cat in cursor.fetchall()]
+
       book_dict = {
-        "id_libro": row[0],
+        "id_libro": book_id,
         "titulo": row[1],
         "editorial": row[2],
         "anio": row[3],
         "autor": row[4],
         "precio": row[5],
-        "stock": row[6]
+        "stock": row[6],
+        "categorias": categories
       }
       list_books.append(book_dict)
-      
+
     return list_books
 
 

@@ -41,6 +41,15 @@ def view_sale(sale_id):
 @web_sale_bp.route("/sales/new", methods=["GET", "POST"])
 @login_required
 def new_sale():
+    # Importar BookManager para obtener la lista de libros
+    from domain.managers.book_manager import BookManager
+    book_manager = BookManager()
+
+    # Obtener todos los libros disponibles para el select
+    ok_books, books, msg_books = book_manager.get_all()
+    if not ok_books:
+        books = []
+
     if request.method == "POST":
         try:
             id_usuario = session.get("user_id")
@@ -68,11 +77,11 @@ def new_sale():
             # Validaciones
             if not metodo_pago or not estado:
                 flash("Debe seleccionar método de pago y estado.", "danger")
-                return render_template("sales/new.html")
+                return render_template("sales/new.html", books=books)
 
             if len(items) == 0:
                 flash("Debe agregar al menos un libro a la venta.", "danger")
-                return render_template("sales/new.html")
+                return render_template("sales/new.html", books=books)
 
             # Crear venta usando SaleManager
             sale_manager = SaleManager()
@@ -86,7 +95,7 @@ def new_sale():
 
             if not ok:
                 flash(f"Error al crear la venta: {message}", "danger")
-                return render_template("sales/new.html")
+                return render_template("sales/new.html", books=books)
 
             flash("Venta creada con éxito.", "success")
             return redirect(url_for("web_sale.list_sales"))
@@ -95,7 +104,7 @@ def new_sale():
             current_app.logger.exception(e)
             flash(f"Error inesperado: {str(e)}", "danger")
 
-    return render_template("sales/new.html")
+    return render_template("sales/new.html", books=books)
 
 
 # EDITAR

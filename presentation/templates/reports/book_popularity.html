@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1><i class="bi bi-graph-up-arrow"></i> Reporte de Popularidad de Libros</h1>
+    <p class="text-muted">Análisis de ventas por libro en el período seleccionado</p>
+
+    <!-- Formulario de Filtros -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('web_report.book_popularity_report') }}" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Fecha Inicio</label>
+                    <input type="date" class="form-control" name="start_date" value="{{ start_date }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Fecha Fin</label>
+                    <input type="date" class="form-control" name="end_date" value="{{ end_date }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Límite</label>
+                    <select class="form-select" name="limit">
+                        <option value="10" {% if limit == 10 %}selected{% endif %}>Top 10</option>
+                        <option value="20" {% if limit == 20 %}selected{% endif %}>Top 20</option>
+                        <option value="50" {% if limit == 50 %}selected{% endif %}>Top 50</option>
+                        <option value="100" {% if limit == 100 %}selected{% endif %}>Top 100</option>
+                        <option value="" {% if not limit %}selected{% endif %}>Todos</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-funnel"></i> Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resumen de Totales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-book"></i> Libros Distintos</h5>
+                    <h2>{{ libros_distintos }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-box"></i> Total Unidades</h5>
+                    <h2>{{ total_unidades }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-currency-dollar"></i> Total Ingresos</h5>
+                    <h2>${{ "%.2f"|format(total_ingresos) }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de Navegación entre Reportes -->
+    <div class="mb-3">
+        <a href="{{ url_for('web_report.sales_reports') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-calendar3"></i> Ver Reporte de Ventas Diarias
+        </a>
+    </div>
+
+    <!-- Tabla de Reportes -->
+    {% if reports %}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Título del Libro</th>
+                <th>Autor</th>
+                <th>Editorial</th>
+                <th>Categorías</th>
+                <th class="text-center">Unidades Vendidas</th>
+                <th class="text-end">Ingresos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ report['dia'] }}</td>
+                <td><strong>{{ report['titulo'] }}</strong></td>
+                <td>{{ report['autor'] }}</td>
+                <td><span class="badge bg-secondary">{{ report['editorial'] }}</span></td>
+                <td>
+                    {% if report.get('categorias') and report['categorias']|length > 0 %}
+                        {% for cat in report['categorias'] %}
+                            <span class="badge bg-info text-dark me-1">{{ cat['nombre'] }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="text-muted">Sin categoría</span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <span class="badge bg-primary rounded-pill">{{ report['unidades'] }}</span>
+                </td>
+                <td class="text-end text-success fw-bold">
+                    ${{ "%.2f"|format(report['ingresos']) }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="table-light">
+            <tr>
+                <th colspan="6" class="text-end">TOTALES:</th>
+                <th class="text-center">
+                    <span class="badge bg-primary rounded-pill fs-6">{{ total_unidades }}</span>
+                </th>
+                <th class="text-end text-success fw-bold fs-5">
+                    ${{ "%.2f"|format(total_ingresos) }}
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No hay reportes de popularidad disponibles para el rango de fechas seleccionado.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

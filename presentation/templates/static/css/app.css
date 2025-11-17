@@ -1,0 +1,598 @@
+/* ========================================
+   PALETA – TEMA VERDE PREMIUM OSCURO
+   ======================================== */
+:root {
+    --bg-main: #0f1a17;          /* Fondo global */
+    --bg-panel: #172420;         /* Cards */
+    --bg-panel-light: #1f332d;   /* Paneles claros */
+    --bg-navbar: #101113;        /* Navbar */
+
+    --green-forest: #274137;     /* Botones principales / títulos */
+    --green-mid: #3b5c4e;        /* Hover / bordes */
+    --green-light: #7ea690;      /* Acentos */
+    --green-soft: #547c6b;       /* Variantes suaves */
+
+    --text-light: #e8ddc5;       /* Títulos principales */
+    --text-normal: #dfe9e3;      /* Texto normal */
+    --text-muted: #9aa69f;       /* Texto secundario */
+
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.18);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* ========================================
+   TIPOGRAFÍA GLOBAL
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: var(--font-sans);
+    background-color: var(--bg-main);
+    color: var(--text-normal);
+    font-size: 15px;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ========================================
+   TÍTULOS
+   ======================================== */
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.display-4 {
+    color: var(--text-light);
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+    background-color: var(--bg-navbar);
+    border-bottom: 1px solid var(--green-mid);
+    padding: 0.6rem 0;
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--green-light);
+    font-weight: 700;
+}
+
+.navbar-brand img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--green-light);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.nav-link {
+    color: var(--text-normal);
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--green-light);
+}
+
+.nav-link:focus,
+.nav-link:active {
+    color: var(--green-light);
+}
+
+.dropdown-menu {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--green-forest);
+}
+
+.dropdown-item {
+    color: var(--text-normal);
+}
+
+.dropdown-item:hover {
+    background-color: var(--green-forest);
+    color: var(--text-light);
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+.card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--green-forest);
+    border-radius: 10px;
+    color: var(--text-normal);
+    box-shadow: var(--shadow-sm);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-header {
+    background-color: var(--bg-panel-light);
+    border-bottom: 1px solid var(--green-mid);
+    color: var(--text-light);
+}
+
+.card-body {
+    background-color: var(--bg-panel);
+}
+
+.card-title {
+    color: var(--text-normal);
+    font-weight: 600;
+}
+
+.card-text {
+    color: var(--text-normal);
+}
+
+/* Sobreescribir colores de borde de Bootstrap */
+.border-primary {
+    border-color: var(--green-mid);
+}
+
+.border-success {
+    border-color: var(--green-soft);
+}
+
+.border-warning {
+    border-color: var(--green-light);
+}
+
+.border-info {
+    border-color: var(--green-forest);
+}
+
+/* ========================================
+   BOTONES – 100% VERDES
+   ======================================== */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: none;
+    transition: 0.2s;
+}
+
+/* PRINCIPAL - Verde */
+.btn-primary {
+    background-color: var(--green-forest);
+    color: var(--text-normal);
+    border-color: var(--green-forest);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--green-mid);
+    color: var(--text-light);
+    border-color: var(--green-mid);
+}
+
+/* SUCCESS - Verde medio */
+.btn-success {
+    background-color: var(--green-mid);
+    color: var(--text-normal);
+    border-color: var(--green-mid);
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+    background-color: var(--green-light);
+    color: var(--bg-main);
+    border-color: var(--green-light);
+}
+
+/* WARNING - Verde claro */
+.btn-warning {
+    background-color: var(--green-light);
+    color: var(--bg-main);
+    border-color: var(--green-light);
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+    background-color: var(--green-mid);
+    color: var(--text-light);
+    border-color: var(--green-mid);
+}
+
+.btn-warning.text-dark {
+    color: var(--bg-main);
+}
+
+/* INFO - Verde suave */
+.btn-info {
+    background-color: var(--green-soft);
+    color: var(--text-normal);
+    border-color: var(--green-soft);
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active {
+    background-color: var(--green-mid);
+    color: var(--text-light);
+    border-color: var(--green-mid);
+}
+
+.btn-info.text-white {
+    color: var(--text-light);
+}
+
+/* SECONDARY */
+.btn-secondary {
+    background-color: var(--bg-panel-light);
+    color: var(--text-normal);
+    border: 1px solid var(--green-forest);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+    background-color: var(--green-forest);
+    color: var(--text-light);
+    border-color: var(--green-forest);
+}
+
+/* DANGER */
+.btn-danger {
+    background-color: #5c3737;
+    color: var(--text-normal);
+    border-color: #5c3737;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+    background-color: #7a4848;
+    color: var(--text-light);
+    border-color: #7a4848;
+}
+
+/* OUTLINES VERDES */
+.btn-outline-primary {
+    border: 2px solid var(--green-light);
+    color: var(--green-light);
+    background: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: var(--green-light);
+    color: var(--bg-main);
+    border-color: var(--green-light);
+}
+
+.btn-outline-warning {
+    border: 2px solid var(--green-light);
+    color: var(--green-light);
+    background: transparent;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+    background-color: var(--green-light);
+    color: var(--bg-main);
+    border-color: var(--green-light);
+}
+
+.btn-outline-warning.text-dark {
+    color: var(--green-light);
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--green-soft);
+    color: var(--green-soft);
+    background: transparent;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active {
+    background-color: var(--green-soft);
+    color: var(--text-light);
+    border-color: var(--green-soft);
+}
+
+/* ========================================
+   FORMULARIOS / ABM
+   ======================================== */
+.form-control,
+.form-select {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--green-forest);
+    color: var(--text-normal);
+    border-radius: 6px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--green-light);
+    box-shadow: 0 0 6px rgba(126, 166, 144, 0.4);
+    background-color: var(--bg-panel-light);
+    color: var(--text-normal);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-label {
+    color: var(--text-normal);
+}
+
+/* ========================================
+   TABLAS
+   ======================================== */
+.table-responsive {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--green-forest);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table {
+    color: var(--text-normal);
+}
+
+.table thead {
+    background-color: var(--green-forest);
+}
+
+.table thead th {
+    color: var(--text-light);
+    font-family: var(--font-serif);
+    border: none;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.table tbody tr:hover {
+    background-color: var(--bg-panel-light);
+}
+
+.table tbody td {
+    color: var(--text-normal);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--bg-panel);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: var(--bg-panel-light);
+}
+
+.table-dark {
+    background-color: var(--green-forest);
+    color: var(--text-light);
+}
+
+.table-dark th,
+.table-dark td {
+    color: var(--text-light);
+}
+
+.table-light {
+    background-color: var(--bg-panel-light);
+    color: var(--text-normal);
+}
+
+.table tfoot {
+    background-color: var(--green-forest);
+}
+
+.table tfoot th {
+    color: var(--text-light);
+}
+
+/* ========================================
+   ALERTS
+   ======================================== */
+.alert {
+    background-color: var(--bg-panel);
+    color: var(--text-normal);
+    border: 1px solid var(--green-mid);
+    border-left: 4px solid var(--green-light);
+}
+
+.alert-info {
+    background-color: var(--bg-panel-light);
+    border-left-color: var(--green-light);
+    color: var(--text-normal);
+}
+
+.alert-success {
+    background-color: var(--bg-panel-light);
+    border-left-color: var(--green-mid);
+    color: var(--text-normal);
+}
+
+.alert-warning {
+    background-color: var(--bg-panel-light);
+    border-left-color: var(--green-light);
+    color: var(--text-normal);
+}
+
+.alert-danger {
+    background-color: var(--bg-panel-light);
+    border-left-color: #7a4848;
+    color: var(--text-normal);
+}
+
+.btn-close {
+    filter: invert(0.8);
+}
+
+/* ========================================
+   BADGES
+   ======================================== */
+.badge {
+    font-weight: 500;
+}
+
+.bg-success,
+.badge.bg-success {
+    background-color: var(--green-mid);
+    color: var(--text-light);
+}
+
+.bg-primary,
+.badge.bg-primary {
+    background-color: var(--green-forest);
+    color: var(--text-light);
+}
+
+.bg-warning,
+.badge.bg-warning {
+    background-color: var(--green-light);
+    color: var(--bg-main);
+}
+
+.bg-info,
+.badge.bg-info {
+    background-color: var(--green-soft);
+    color: var(--text-light);
+}
+
+.bg-secondary,
+.badge.bg-secondary {
+    background-color: var(--bg-panel-light);
+    color: var(--text-normal);
+}
+
+.bg-light,
+.badge.bg-light {
+    background-color: var(--bg-panel-light);
+    color: var(--text-normal);
+}
+
+.bg-danger,
+.badge.bg-danger {
+    background-color: #7a4848;
+    color: var(--text-light);
+}
+
+/* ========================================
+   UTILIDADES DE TEXTO
+   ======================================== */
+.text-success {
+    color: var(--green-light);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-dark {
+    color: var(--bg-main);
+}
+
+.text-white {
+    color: var(--text-light);
+}
+
+.lead {
+    color: var(--text-muted);
+}
+
+.fw-bold {
+    font-weight: 600;
+}
+
+/* ========================================
+   CONTENEDORES
+   ======================================== */
+.container {
+    background-color: transparent;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+footer {
+    background-color: var(--bg-panel-light);
+    border-top: 1px solid var(--green-mid);
+    padding: 1rem;
+}
+
+footer p {
+    color: var(--text-muted);
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--green-forest);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--green-mid);
+}
+
+/* ========================================
+   SOMBRAS
+   ======================================== */
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 38px;
+        width: 38px;
+    }
+
+    h1.display-4 {
+        font-size: 2.5rem;
+    }
+}

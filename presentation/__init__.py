@@ -12,8 +12,7 @@ def create_app():
   # Indicamos donde están los templates
   template_dir = os.path.join(root_dir, 'templates')
   static_dir   = os.path.join(template_dir, 'static')
-  print(f"Templates: {template_dir}")
-  print(f"Static: {static_dir}")
+
   # indicamos dónde están los templates (según tu estructura)
   app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
@@ -73,6 +72,10 @@ def create_app():
   # Reportes
   from .routes.web.report import web_report_bp
   app.register_blueprint(web_report_bp)
+
+  # Categorías
+  from .routes.web.category import web_category_bp
+  app.register_blueprint(web_category_bp)
 
   
   # --- Rutas Api ---

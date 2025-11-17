@@ -22,7 +22,7 @@
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Libros</h5>
         <p class="card-text flex-grow-1">Registrar, editar y consultar libros disponibles en la librería.</p>
-        <a href="{{ url_for('web_book.list_books') }}" class="btn btn-primary mt-3">Gestionar Libros</a>
+        <a href="{{ url_for('web_book.list_books') }}" class="btn btn-success mt-3">Gestionar Libros</a>
       </div>
     </div>
 
@@ -30,15 +30,26 @@
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Ventas</h5>
         <p class="card-text flex-grow-1">Ingresar nuevas ventas, consultar ventas realizadas y su estado.</p>
-        <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-success mt-3">Ver Ventas</a>
+        <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-success mt-3">Gestionar Ventas</a>
       </div>
     </div>
 
-    <div class="card shadow-sm text-center border-warning" style="width: 18rem;">
+ <div class="card shadow-sm text-center border-warning" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Reportes</h5>
-        <p class="card-text flex-grow-1">Generar reportes diarios, estadísticas de ventas y popularidad de libros.</p>
-        <a href="{{ url_for('web_report.list_reports') }}" class="btn btn-warning mt-3 text-dark">Ver Reportes</a>
+        <p class="card-text flex-grow-1">Generar reportes de ventas diarias y popularidad de libros.</p>
+        <div class="btn-group mt-3 w-100" role="group">
+          <a href="{{ url_for('web_report.sales_reports') }}" class="btn btn-success border border-dark">Ventas</a>
+          <a href="{{ url_for('web_report.book_popularity_report') }}" class="btn btn-success border border-dark">Popularidad</a>
+        </div>
+      </div>
+    </div>
+
+      <div class="card shadow-sm text-center border-info" style="width: 18rem;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">Categorías</h5>
+        <p class="card-text flex-grow-1">Gestionar categorías de libros para organizar el inventario.</p>
+        <a href="{{ url_for('web_category.list_categories') }}" class="btn btn-success mt-3">Gestionar Categorías</a>
       </div>
     </div>
 

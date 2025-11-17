@@ -7,7 +7,7 @@
     <!-- Formulario de Filtros -->
     <div class="card mb-4">
         <div class="card-body">
-            <form method="GET" action="{{ url_for('web_report.list_reports') }}" class="row g-3">
+            <form method="GET" action="{{ url_for('web_report.sales_reports') }}" class="row g-3">
                 <div class="col-md-5">
                     <label class="form-label">Fecha Inicio</label>
                     <input type="date" class="form-control" name="start_date" value="{{ start_date }}">

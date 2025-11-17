@@ -2,45 +2,70 @@
 {% block title %}Nueva Venta{% endblock %}
 {% block content %}
 <div class="container mt-5">
-  <h1>Nueva Venta</h1>
-  <form method="POST" id="saleForm">
-    <div class="mb-3">
-      <label class="form-label">Fecha</label>
-      <input type="datetime-local" class="form-control" name="fecha" required>
+  <div class="card shadow">
+    <div class="card-header bg-success text-white">
+      <h2 class="mb-0"><i class="bi bi-cart-plus"></i> Nueva Venta</h2>
     </div>
+    <div class="card-body">
+      <form method="POST" id="saleForm">
 
-    <div class="mb-3">
-      <label class="form-label">Método de Pago</label>
-      <select class="form-select" name="metodo_pago" required>
-        <option value="">Seleccionar...</option>
-        <option value="EFECTIVO">Efectivo</option>
-        <option value="DEBITO">Débito</option>
-        <option value="CREDITO">Crédito</option>
-        <option value="TRANSFERENCIA">Transferencia</option>
-        <option value="OTRO">Otro</option>
-      </select>
+        <!-- Sección de Items -->
+        <div class="mb-4">
+          <h4 class="border-bottom pb-2"><i class="bi bi-book"></i> Libros a Vender</h4>
+          <div id="items-container"></div>
+          <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="addItem">
+            <i class="bi bi-plus-circle"></i> Agregar libro
+          </button>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Información de la Venta -->
+        <h4 class="border-bottom pb-2 mb-3"><i class="bi bi-info-circle"></i> Información de la Venta</h4>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Fecha y Hora <span class="text-danger">*</span></label>
+            <input type="datetime-local" class="form-control" name="fecha" required>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Método de Pago <span class="text-danger">*</span></label>
+            <select class="form-select" name="metodo_pago" required>
+              <option value="">Seleccionar...</option>
+              <option value="EFECTIVO">Efectivo</option>
+              <option value="DEBITO">Débito</option>
+              <option value="CREDITO">Crédito</option>
+              <option value="TRANSFERENCIA">Transferencia</option>
+              <option value="OTRO">Otro</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Estado <span class="text-danger">*</span></label>
+            <select class="form-select" name="estado" required>
+              <option value="">Seleccionar...</option>
+              <option value="COMPLETADA">Completada</option>
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="ANULADA">Anulada</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- Botones de Acción -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Crear Venta
+          </button>
+          <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-secondary">
+            <i class="bi bi-x-circle"></i> Cancelar
+          </a>
+        </div>
+      </form>
     </div>
-
-    <div class="mb-3">
-      <label class="form-label">Estado</label>
-      <select class="form-select" name="estado" required>
-        <option value="">Seleccionar...</option>
-        <option value="COMPLETADA">Completada</option>
-        <option value="PENDIENTE">Pendiente</option>
-        <option value="ANULADA">Anulada</option>
-      </select>
-    </div>
-
-    <hr>
-
-    <h4>Items</h4>
-    <div id="items-container"></div>
-
-    <button type="button" class="btn btn-sm btn-outline-primary mb-3" id="addItem">+ Agregar libro</button>
-
-    <button type="submit" class="btn btn-success">Crear</button>
-    <a href="{{ url_for('web_sale.list_sales') }}" class="btn btn-secondary">Cancelar</a>
-  </form>
+  </div>
 </div>
 
 <script>
@@ -48,28 +73,63 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("items-container");
   const addBtn = document.getElementById("addItem");
 
-  addBtn.addEventListener("click", () => {
+  // Lista de libros disponibles (viene del backend)
+  const books = {{ books | tojson }};
+
+  // Función para crear un nuevo item
+  function createItemRow() {
     const item = document.createElement("div");
-    item.classList.add("row", "g-2", "align-items-end", "mb-2");
+    item.classList.add("row", "g-2", "align-items-end", "mb-3", "p-3", "border", "rounded", "bg-light");
+
+    // Crear el select de libros
+    let bookOptions = '<option value="">Seleccionar libro...</option>';
+    books.forEach(book => {
+      bookOptions += `<option value="${book.id_libro}">
+        ${book.titulo} - ${book.autor} (Stock: ${book.stock}) - $${book.precio}
+      </option>`;
+    });
+
     item.innerHTML = `
-      <div class="col-md-4">
-        <label class="form-label">ID Libro</label>
-        <input type="number" class="form-control" name="id_libro[]" required>
+      <div class="col-md-7">
+        <label class="form-label"><i class="bi bi-book"></i> Libro</label>
+        <select class="form-select" name="id_libro[]" required>
+          ${bookOptions}
+        </select>
       </div>
       <div class="col-md-3">
-        <label class="form-label">Cantidad</label>
-        <input type="number" class="form-control" name="cantidad[]" min="1" required>
+        <label class="form-label"><i class="bi bi-hash"></i> Cantidad</label>
+        <input type="number" class="form-control" name="cantidad[]" min="1" value="1" required>
       </div>
-      <div class="col-md-2 text-end">
-        <button type="button" class="btn btn-danger btn-sm removeItem">X</button>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-danger w-100 removeItem">
+          <i class="bi bi-trash"></i> Quitar
+        </button>
       </div>
     `;
-    container.appendChild(item);
+    return item;
+  }
+
+  // Agregar el primer item al cargar
+  container.appendChild(createItemRow());
+
+  // Evento para agregar más items
+  addBtn.addEventListener("click", () => {
+    container.appendChild(createItemRow());
   });
 
+  // Evento para eliminar items (usando delegación de eventos)
   container.addEventListener("click", (e) => {
-    if (e.target.classList.contains("removeItem")) {
-      e.target.closest(".row").remove();
+    if (e.target.classList.contains("removeItem") || e.target.closest(".removeItem")) {
+      const button = e.target.classList.contains("removeItem") ? e.target : e.target.closest(".removeItem");
+      const row = button.closest(".row");
+
+      // Solo permitir eliminar si hay más de un item
+      const totalItems = container.querySelectorAll(".row").length;
+      if (totalItems > 1) {
+        row.remove();
+      } else {
+        alert("Debe haber al menos un libro en la venta.");
+      }
     }
   });
 });
