@@ -77,6 +77,9 @@ def create_app():
   from .routes.web.category import web_category_bp
   app.register_blueprint(web_category_bp)
 
+  @app.errorhandler(404)
+  def page_not_found(e):
+    return render_template('404.html'), 404
   
   # --- Rutas Api ---
   from .routes.api.auth import auth_bp
