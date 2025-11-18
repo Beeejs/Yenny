@@ -47,6 +47,10 @@ El proyecto sigue una estructura modular para separar las responsabilidades, fac
 │   ├── controllers
 │   ├── middlewares
 │   ├── routes
+├── templates
+│   ├──auth
+│   ├──books
+│   └──sales
 ├── test
 ```
 
