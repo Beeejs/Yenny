@@ -153,8 +153,21 @@ h1, h2, h3, h4, h5 {
 
 
 .btn-primary {
-    background-color: var(--green-forest);
-    color: var(--text-light);
+    --bs-btn-color: var(--text-light);
+    --bs-btn-bg: var(--green-forest);
+    --bs-btn-border-color: var(--green-forest);
+
+    --bs-btn-hover-color: var(--text-light);
+    --bs-btn-hover-bg: var(--green-mid);
+    --bs-btn-hover-border-color: var(--green-mid);
+
+    --bs-btn-active-color: var(--text-light);
+    --bs-btn-active-bg: var(--green-dark);
+    --bs-btn-active-border-color: var(--green-dark);
+
+    --bs-btn-disabled-color: var(--text-light);
+    --bs-btn-disabled-bg: var(--green-dark);
+    --bs-btn-disabled-border-color: var(--green-dark);
 }
 .btn-primary:hover {
     background-color: var(--green-mid);
@@ -177,8 +190,23 @@ h1, h2, h3, h4, h5 {
 }
 
 
-.btn-info {
-    background-color: var(--green-soft);
+.btn-info,
+.btn-info:visited,
+.btn-info:focus,
+.btn-info:active {
+    background-color: var(--green-soft) !important;
+    border-color: var(--green-soft) !important;
+    color: var(--text-light) !important;
+}
+
+.btn-info:hover {
+    background-color: var(--green-mid) !important;
+    border-color: var(--green-mid) !important;
+    color: var(--text-light) !important;
+}
+
+/* Ícono dentro del botón */
+.btn-info i {
     color: var(--text-light) !important;
 }
 
@@ -297,7 +325,7 @@ select[multiple].form-select option {
 }
 
 /* ========================================
-   FIXES — ABM LIBROS
+   ABM LIBROS
    ======================================== */
 
 .text-muted {

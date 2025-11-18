@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <!-- Título y botón Nuevo -->
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Categorías</h1>
         <a href="{{ url_for('web_category.new_category') }}" class="btn btn-primary">Nueva Categoría</a>
@@ -28,7 +28,7 @@
                     <td>
                         <a href="{{ url_for('web_category.view_category', category_id=category['id_categoria']) }}"
                            class="btn btn-info btn-sm">
-                            <i class="bi bi-eye"></i> Ver
+                            <i class="#"></i> Ver
                         </a>
                         <a href="{{ url_for('web_category.delete_category', category_id=category['id_categoria']) }}"
                            class="btn btn-danger btn-sm"
