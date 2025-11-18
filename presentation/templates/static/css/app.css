@@ -1,20 +1,18 @@
-/* ========================================
-   PALETA – TEMA VERDE PREMIUM OSCURO
-   ======================================== */
 :root {
-    --bg-main: #0f1a17;          /* Fondo global */
-    --bg-panel: #172420;         /* Cards */
-    --bg-panel-light: #1f332d;   /* Paneles claros */
-    --bg-navbar: #101113;        /* Navbar */
+    --bg-main: #0f1a17;
+    --bg-panel: #172420;
+    --bg-panel-light: #1f332d;
+    --bg-navbar: transparent;
 
-    --green-forest: #274137;     /* Botones principales / títulos */
-    --green-mid: #3b5c4e;        /* Hover / bordes */
-    --green-light: #7ea690;      /* Acentos */
-    --green-soft: #547c6b;       /* Variantes suaves */
+    --green-forest: #274137;
+    --green-mid: #3b5c4e;
+    --green-light: #7ea690;
+    --green-soft: #547c6b;
+    --green-dark: #1a2f28;
 
-    --text-light: #e8ddc5;       /* Títulos principales */
-    --text-normal: #dfe9e3;      /* Texto normal */
-    --text-muted: #9aa69f;       /* Texto secundario */
+    --text-light: #e8ddc5;
+    --text-normal: #dfe9e3;
+    --text-muted: #9aa69f;
 
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -24,9 +22,7 @@
     --shadow-lg: 0 8px 24px rgba(0,0,0,0.35);
 }
 
-/* ========================================
-   TIPOGRAFÍA GLOBAL
-   ======================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 * {
@@ -61,10 +57,10 @@ h1, h2, h3, h4, h5 {
    NAVBAR
    ======================================== */
 .navbar {
-    background-color: var(--bg-navbar);
+    background-color: transparent;
     border-bottom: 1px solid var(--green-mid);
     padding: 0.6rem 0;
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
 }
 
 .navbar-brand {
@@ -88,10 +84,7 @@ h1, h2, h3, h4, h5 {
     font-weight: 500;
 }
 
-.nav-link:hover {
-    color: var(--green-light);
-}
-
+.nav-link:hover,
 .nav-link:focus,
 .nav-link:active {
     color: var(--green-light);
@@ -116,7 +109,7 @@ h1, h2, h3, h4, h5 {
    ======================================== */
 .card {
     background-color: var(--bg-panel);
-    border: 1px solid var(--green-forest);
+    border: 1px solid var(--green-dark);
     border-radius: 10px;
     color: var(--text-normal);
     box-shadow: var(--shadow-sm);
@@ -139,7 +132,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .card-title {
-    color: var(--text-normal);
+    color: var(--text-light);
     font-weight: 600;
 }
 
@@ -147,423 +140,189 @@ h1, h2, h3, h4, h5 {
     color: var(--text-normal);
 }
 
-/* Sobreescribir colores de borde de Bootstrap */
-.border-primary {
-    border-color: var(--green-mid);
-}
-
-.border-success {
-    border-color: var(--green-soft);
-}
-
-.border-warning {
-    border-color: var(--green-light);
-}
-
-.border-info {
-    border-color: var(--green-forest);
-}
-
 /* ========================================
-   BOTONES – 100% VERDES
+   BOTONES
    ======================================== */
+
 .btn {
     border-radius: 6px;
     font-weight: 500;
-    letter-spacing: 0.02em;
     border: none;
     transition: 0.2s;
 }
 
-/* PRINCIPAL - Verde */
+
 .btn-primary {
     background-color: var(--green-forest);
-    color: var(--text-normal);
-    border-color: var(--green-forest);
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
-    background-color: var(--green-mid);
     color: var(--text-light);
-    border-color: var(--green-mid);
+}
+.btn-primary:hover {
+    background-color: var(--green-mid);
 }
 
-/* SUCCESS - Verde medio */
+
 .btn-success {
     background-color: var(--green-mid);
-    color: var(--text-normal);
-    border-color: var(--green-mid);
+    color: var(--text-light);
 }
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active {
+.btn-success:hover {
     background-color: var(--green-light);
     color: var(--bg-main);
-    border-color: var(--green-light);
 }
 
-/* WARNING - Verde claro */
+
 .btn-warning {
     background-color: var(--green-light);
     color: var(--bg-main);
-    border-color: var(--green-light);
 }
 
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:active {
-    background-color: var(--green-mid);
-    color: var(--text-light);
-    border-color: var(--green-mid);
-}
 
-.btn-warning.text-dark {
-    color: var(--bg-main);
-}
-
-/* INFO - Verde suave */
 .btn-info {
     background-color: var(--green-soft);
-    color: var(--text-normal);
-    border-color: var(--green-soft);
+    color: var(--text-light) !important;
 }
 
-.btn-info:hover,
-.btn-info:focus,
-.btn-info:active {
-    background-color: var(--green-mid);
-    color: var(--text-light);
-    border-color: var(--green-mid);
-}
 
-.btn-info.text-white {
-    color: var(--text-light);
-}
-
-/* SECONDARY */
-.btn-secondary {
-    background-color: var(--bg-panel-light);
-    color: var(--text-normal);
-    border: 1px solid var(--green-forest);
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active {
-    background-color: var(--green-forest);
-    color: var(--text-light);
-    border-color: var(--green-forest);
-}
-
-/* DANGER */
 .btn-danger {
     background-color: #5c3737;
-    color: var(--text-normal);
-    border-color: #5c3737;
+    color: var(--text-light);
 }
-
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active {
+.btn-danger:hover {
     background-color: #7a4848;
-    color: var(--text-light);
-    border-color: #7a4848;
-}
-
-/* OUTLINES VERDES */
-.btn-outline-primary {
-    border: 2px solid var(--green-light);
-    color: var(--green-light);
-    background: transparent;
-}
-
-.btn-outline-primary:hover,
-.btn-outline-primary:focus,
-.btn-outline-primary:active {
-    background-color: var(--green-light);
-    color: var(--bg-main);
-    border-color: var(--green-light);
-}
-
-.btn-outline-warning {
-    border: 2px solid var(--green-light);
-    color: var(--green-light);
-    background: transparent;
-}
-
-.btn-outline-warning:hover,
-.btn-outline-warning:focus,
-.btn-outline-warning:active {
-    background-color: var(--green-light);
-    color: var(--bg-main);
-    border-color: var(--green-light);
-}
-
-.btn-outline-warning.text-dark {
-    color: var(--green-light);
-}
-
-.btn-outline-secondary {
-    border: 2px solid var(--green-soft);
-    color: var(--green-soft);
-    background: transparent;
-}
-
-.btn-outline-secondary:hover,
-.btn-outline-secondary:focus,
-.btn-outline-secondary:active {
-    background-color: var(--green-soft);
-    color: var(--text-light);
-    border-color: var(--green-soft);
 }
 
 /* ========================================
-   FORMULARIOS / ABM
+   FORMULARIOS
    ======================================== */
+
 .form-control,
-.form-select {
-    background-color: var(--bg-panel);
-    border: 1px solid var(--green-forest);
-    color: var(--text-normal);
-    border-radius: 6px;
+.form-select,
+textarea {
+    background-color: var(--bg-panel) !important;
+    color: var(--text-light) !important;
+    border: 1px solid var(--green-dark) !important;
 }
 
 .form-control:focus,
-.form-select:focus {
-    border-color: var(--green-light);
-    box-shadow: 0 0 6px rgba(126, 166, 144, 0.4);
-    background-color: var(--bg-panel-light);
-    color: var(--text-normal);
-}
-
-.form-control::placeholder {
-    color: var(--text-muted);
+.form-select:focus,
+textarea:focus {
+    background-color: var(--bg-panel-light) !important;
+    border-color: var(--green-light) !important;
+    box-shadow: 0 0 6px rgba(126,166,144,0.4) !important;
 }
 
 .form-label {
-    color: var(--text-normal);
+    color: var(--text-light) !important;
+}
+
+.form-control::placeholder {
+    color: var(--text-muted) !important;
+}
+
+
+select[multiple].form-select option {
+    background-color: var(--bg-panel);
+    color: var(--text-light);
 }
 
 /* ========================================
    TABLAS
    ======================================== */
+
 .table-responsive {
-    background-color: var(--bg-panel);
-    border: 1px solid var(--green-forest);
+    background-color: var(--bg-panel) !important;
+    border: 1px solid var(--green-dark);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .table {
-    color: var(--text-normal);
+    color: var(--text-light);
 }
 
 .table thead {
-    background-color: var(--green-forest);
+    background-color: var(--green-forest) !important;
 }
 
 .table thead th {
-    color: var(--text-light);
-    font-family: var(--font-serif);
     border: none;
-}
-
-.table tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.table tbody tr:hover {
-    background-color: var(--bg-panel-light);
-}
-
-.table tbody td {
-    color: var(--text-normal);
+    color: var(--text-light) !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: var(--bg-panel);
+    background-color: var(--bg-panel) !important;
 }
 
 .table-striped tbody tr:nth-of-type(even) {
-    background-color: var(--bg-panel-light);
+    background-color: var(--bg-panel-light) !important;
 }
 
-.table-dark {
-    background-color: var(--green-forest);
-    color: var(--text-light);
+.table tbody td,
+.table td strong,
+.table td a,
+.table td span {
+    color: var(--text-light) !important;
 }
 
-.table-dark th,
-.table-dark td {
-    color: var(--text-light);
+.table tbody tr:hover {
+    background-color: var(--bg-panel-light) !important;
 }
 
-.table-light {
-    background-color: var(--bg-panel-light);
-    color: var(--text-normal);
-}
 
-.table tfoot {
-    background-color: var(--green-forest);
-}
-
-.table tfoot th {
-    color: var(--text-light);
-}
+.badge.bg-success { background-color: var(--green-mid) !important; }
+.badge.bg-warning { background-color: var(--green-light) !important; color: var(--bg-main) !important; }
+.badge.bg-primary { background-color: var(--green-forest) !important; }
+.badge.bg-info    { background-color: var(--green-soft) !important; }
 
 /* ========================================
-   ALERTS
+   ALERTAS
    ======================================== */
+
 .alert {
-    background-color: var(--bg-panel);
-    color: var(--text-normal);
-    border: 1px solid var(--green-mid);
-    border-left: 4px solid var(--green-light);
+    background-color: var(--bg-panel) !important;
+    color: var(--text-light) !important;
+    border-left: 4px solid var(--green-light) !important;
+    border: 1px solid var(--green-mid) !important;
 }
 
 .alert-info {
-    background-color: var(--bg-panel-light);
-    border-left-color: var(--green-light);
-    color: var(--text-normal);
+    background-color: #12221d !important;
+    color: var(--text-light) !important;
+    border-left: 4px solid var(--green-light) !important;
 }
 
-.alert-success {
-    background-color: var(--bg-panel-light);
-    border-left-color: var(--green-mid);
-    color: var(--text-normal);
-}
-
-.alert-warning {
-    background-color: var(--bg-panel-light);
-    border-left-color: var(--green-light);
-    color: var(--text-normal);
-}
-
-.alert-danger {
-    background-color: var(--bg-panel-light);
-    border-left-color: #7a4848;
-    color: var(--text-normal);
-}
 
 .btn-close {
     filter: invert(0.8);
 }
 
 /* ========================================
-   BADGES
+   FIXES — ABM LIBROS
    ======================================== */
-.badge {
-    font-weight: 500;
-}
-
-.bg-success,
-.badge.bg-success {
-    background-color: var(--green-mid);
-    color: var(--text-light);
-}
-
-.bg-primary,
-.badge.bg-primary {
-    background-color: var(--green-forest);
-    color: var(--text-light);
-}
-
-.bg-warning,
-.badge.bg-warning {
-    background-color: var(--green-light);
-    color: var(--bg-main);
-}
-
-.bg-info,
-.badge.bg-info {
-    background-color: var(--green-soft);
-    color: var(--text-light);
-}
-
-.bg-secondary,
-.badge.bg-secondary {
-    background-color: var(--bg-panel-light);
-    color: var(--text-normal);
-}
-
-.bg-light,
-.badge.bg-light {
-    background-color: var(--bg-panel-light);
-    color: var(--text-normal);
-}
-
-.bg-danger,
-.badge.bg-danger {
-    background-color: #7a4848;
-    color: var(--text-light);
-}
-
-/* ========================================
-   UTILIDADES DE TEXTO
-   ======================================== */
-.text-success {
-    color: var(--green-light);
-}
 
 .text-muted {
-    color: var(--text-muted);
+    color: var(--text-light) !important;
+    opacity: 0.6;
 }
 
-.text-dark {
-    color: var(--bg-main);
+.btn-sm i {
+    color: var(--text-light) !important;
 }
 
-.text-white {
-    color: var(--text-light);
-}
-
-.lead {
-    color: var(--text-muted);
-}
-
-.fw-bold {
-    font-weight: 600;
-}
-
-/* ========================================
-   CONTENEDORES
-   ======================================== */
-.container {
-    background-color: transparent;
-}
-
-/* ========================================
-   FOOTER
-   ======================================== */
-footer {
-    background-color: var(--bg-panel-light);
-    border-top: 1px solid var(--green-mid);
-    padding: 1rem;
-}
-
-footer p {
-    color: var(--text-muted);
+.badge {
+    color: var(--text-light) !important;
 }
 
 /* ========================================
    SCROLLBAR
    ======================================== */
-::-webkit-scrollbar {
-    width: 10px;
-}
 
-::-webkit-scrollbar-track {
-    background-color: var(--bg-main);
-}
-
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background-color: var(--bg-main); }
 ::-webkit-scrollbar-thumb {
     background-color: var(--green-forest);
     border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--green-mid);
 }
@@ -571,28 +330,76 @@ footer p {
 /* ========================================
    SOMBRAS
    ======================================== */
-.shadow-sm {
-    box-shadow: var(--shadow-sm);
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow    { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* ========================================
+   OVERRIDE TOTAL DE TABLAS BOOTSTRAP
+   ======================================== */
+
+.table {
+    --bs-table-bg:            var(--bg-panel) !important;
+    --bs-table-striped-bg:    var(--bg-panel-light) !important;
+    --bs-table-hover-bg:      var(--bg-panel-light) !important;
+    --bs-table-color:         var(--text-light) !important;
+    --bs-table-striped-color: var(--text-light) !important;
+    --bs-table-hover-color:   var(--text-light) !important;
+
+    --bs-border-color: var(--green-dark) !important;
+
+    background-color: var(--bg-panel) !important;
+    color: var(--text-light) !important;
+    border-color: var(--green-dark) !important;
 }
 
-.shadow {
-    box-shadow: var(--shadow-md);
+
+.table thead {
+    background-color: var(--green-forest) !important;
 }
 
-.shadow-lg {
-    box-shadow: var(--shadow-lg);
+.table thead th {
+    border-bottom: none !important;
+    background-color: var(--green-forest) !important;
+    color: var(--text-light) !important;
+}
+
+.table td,
+.table th,
+.table tbody tr,
+.table tbody td,
+.table tbody th {
+    border-color: var(--green-dark) !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--bg-panel-light) !important;
+    color: var(--text-light) !important;
+}
+
+.table * {
+    background-image: none !important;
 }
 
 /* ========================================
-   RESPONSIVE
+   FIXES ESPECÍFICOS
    ======================================== */
-@media (max-width: 768px) {
-    .navbar-brand img {
-        height: 38px;
-        width: 38px;
-    }
 
-    h1.display-4 {
-        font-size: 2.5rem;
-    }
+#saleForm h4.border-bottom {
+    border-bottom: none !important;
+}
+
+#addItem {
+    background-color: var(--green-mid) !important;
+    border-color: var(--green-mid) !important;
+    color: var(--text-light) !important;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+}
+
+#addItem:hover {
+    background-color: var(--green-light) !important;
+    border-color: var(--green-light) !important;
+    color: var(--bg-main) !important;
 }

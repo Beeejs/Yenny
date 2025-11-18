@@ -5,7 +5,6 @@
 {% block content %}
 <div class="d-flex flex-column justify-content-center align-items-center vh-100">
 
-  <!-- Saludo centrado -->
   <div class="text-center mb-5">
     <h1 class="display-4 fw-bold">Bienvenido a Yenny</h1>
     {% if session.get('nombre') %}
@@ -15,10 +14,9 @@
     {% endif %}
   </div>
 
-  <!-- Cards principales centradas -->
   <div class="d-flex justify-content-center flex-wrap gap-4">
 
-    <div class="card shadow-sm text-center border-primary" style="width: 18rem;">
+    <div class="card shadow-sm text-center" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Libros</h5>
         <p class="card-text flex-grow-1">Registrar, editar y consultar libros disponibles en la librería.</p>
@@ -26,7 +24,7 @@
       </div>
     </div>
 
-    <div class="card shadow-sm text-center border-success" style="width: 18rem;">
+    <div class="card shadow-sm text-center" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Ventas</h5>
         <p class="card-text flex-grow-1">Ingresar nuevas ventas, consultar ventas realizadas y su estado.</p>
@@ -34,18 +32,18 @@
       </div>
     </div>
 
- <div class="card shadow-sm text-center border-warning" style="width: 18rem;">
+    <div class="card shadow-sm text-center" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Reportes</h5>
         <p class="card-text flex-grow-1">Generar reportes de ventas diarias y popularidad de libros.</p>
         <div class="btn-group mt-3 w-100" role="group">
-          <a href="{{ url_for('web_report.sales_reports') }}" class="btn btn-success border border-dark">Ventas</a>
-          <a href="{{ url_for('web_report.book_popularity_report') }}" class="btn btn-success border border-dark">Popularidad</a>
+          <a href="{{ url_for('web_report.sales_reports') }}" class="btn btn-success">Ventas</a>
+          <a href="{{ url_for('web_report.book_popularity_report') }}" class="btn btn-success">Popularidad</a>
         </div>
       </div>
     </div>
 
-      <div class="card shadow-sm text-center border-info" style="width: 18rem;">
+    <div class="card shadow-sm text-center" style="width: 18rem;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title fw-bold">Categorías</h5>
         <p class="card-text flex-grow-1">Gestionar categorías de libros para organizar el inventario.</p>
